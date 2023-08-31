@@ -1,2 +1,10 @@
-<h1>ApiKey#show</h1>
-<p>Find me in app/views/api_key/show.html.erb</p>
+<div class='api-key>
+<p class='api-key-details'>Your API Key is '<b><%= @api_key %></b>'</p>
+<%= link_to 'Edit Api Key', api_key_edit_path %>
+</div>
+
+<%= button_to(
+        "Log Out",
+        destroy_user_session_path,
+        method: :delete
+      ) %>
