@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get '/api_key', to: 'api_key#show'
   get '/api_key/edit', to: 'api_key#edit'
+  post '/api_key', to: 'api_key#update'
 
   devise_scope :user do
     get 'login', to: 'api_key#show'

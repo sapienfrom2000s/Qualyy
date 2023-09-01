@@ -16,7 +16,7 @@ feature 'user able to edit youtube api key', type: :system do
     expect(page).to have_content("Your API Key is '#{User.first.youtube_api_key}'")
   end
 
-  xit 'user able to edit api key' do
+  it 'user able to edit api key' do
     User.create(email:'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
 
     log_in_as('bla@bla.com')
@@ -24,12 +24,15 @@ feature 'user able to edit youtube api key', type: :system do
     sleep 2
 
     visit '/api_key/edit'
-    expect(page).to have_field('Api Key', with: 'arandomnumber')
+    expect(page).to have_field('Youtube api key', with: 'arandomnumber')
 
-    fill_in 'Api Key', with: 'anotherrandomnumber'
-    click_button 'Update Key'
+    fill_in 'Youtube api key', with: 'anotherrandomnumber'
+    click_button 'Update'
 
-    expect(page).to have_content('Your Api Key is anotherrandomnumber')
+    sleep 2
+
+    expect(page).to have_content('API Key successfully updated')
+    expect(page).to have_content("Your API Key is '#{User.first.youtube_api_key}'")
   end
 
 end
