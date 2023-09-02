@@ -5,7 +5,7 @@ feature 'user able to edit youtube api key', type: :system do
   include LoginHelper
 
   it 'shows api key to users' do
-    User.create(email:'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
+    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
 
     log_in_as('bla@bla.com')
 
@@ -17,7 +17,7 @@ feature 'user able to edit youtube api key', type: :system do
   end
 
   it 'user able to edit api key' do
-    User.create(email:'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
+    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
 
     log_in_as('bla@bla.com')
 
@@ -34,5 +34,4 @@ feature 'user able to edit youtube api key', type: :system do
     expect(page).to have_content('API Key successfully updated')
     expect(page).to have_content("Your API Key is '#{User.first.youtube_api_key}'")
   end
-
 end
