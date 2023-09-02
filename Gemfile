@@ -76,3 +76,5 @@ gem "devise", "~> 4.9"
 group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
 end
+
+gem "rubocop-rails", "~> 2.20"
