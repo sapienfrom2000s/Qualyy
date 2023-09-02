@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/api_key/edit', to: 'api_key#edit'
   post '/api_key', to: 'api_key#update'
 
+  get '/channels', to:'channels#index'
+
   devise_scope :user do
     get 'login', to: 'api_key#show'
     get 'logout' => 'devise/sessions#destroy'
