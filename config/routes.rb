@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'channels/index'
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -10,12 +11,12 @@ Rails.application.routes.draw do
   get '/api_key/edit', to: 'api_key#edit'
   post '/api_key', to: 'api_key#update'
 
-  get '/channels', to:'channels#index'
+  resources :channels
 
   devise_scope :user do
     get 'login', to: 'api_key#show'
     get 'logout' => 'devise/sessions#destroy'
   end
 
-  root 'api_key#show'
+  root 'channels#index'
 end
