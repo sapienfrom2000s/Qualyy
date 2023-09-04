@@ -1,7 +1,7 @@
 <%= turbo_frame_tag 'new_channel' do %>
   <%= form_with model: @channel, :class => 'new-channel-form' do |form| %>
-    <%= form.label :channel_id, 'Channel ID' %><br>
-    <%= form.text_field :channel_id, :size => 28 %><br>
+    <%= form.label :identifier, 'Channel ID' %><br>
+    <%= form.text_field :identifier, :size => 28 %><br>
     <%= form.label :keywords %><br>
     <%= form.text_field :keywords, :size => 35 %><br>
     <%= form.label :non_keywords, 'Non Keywords' %><br>

@@ -1,0 +1,12 @@
+<tr>
+    <td><%= channel.identifier %></td>
+    <td><%= channel.filter.published_after.to_fs(:rfc822) if channel.filter.published_after %></td>
+    <td><%= channel.filter.published_before.to_fs(:rfc822) if channel.filter.published_before %></td>
+    <td><%= Time.at(channel.filter.minimum_duration).utc.strftime("%H:%M:%S") if channel.filter.minimum_duration %></td>
+    <td><%= Time.at(channel.filter.maximum_duration).utc.strftime("%H:%M:%S") if channel.filter.maximum_duration %></td>
+    <td><%= channel.filter.videos %></td>
+    <td><%= channel.filter.keywords %></td>
+    <td><%= channel.filter.non_keywords %></td>
+    <td><button>Edit</button></td>
+    <td><button>Delete</button></td>
+</tr>

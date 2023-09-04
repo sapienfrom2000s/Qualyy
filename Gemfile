@@ -75,6 +75,7 @@ gem "devise", "~> 4.9"
 
 group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'pry-byebug', require: true
 end
 
 gem "rubocop-rails", "~> 2.20"

@@ -35,14 +35,14 @@ feature 'user able to see filters', type: :system do
     fill_in 'Non Keywords', with: 'nonkeyword1;nonkeyword2'
     fill_in 'Published Before', with: '02122022'
     fill_in 'Published After', with: '02112022'
-    fill_in 'Minimum Time(in s)', with: '100'
-    fill_in 'Maximum Time(in s)', with: '1000'
-    select '10', :from => 'videos'
+    fill_in 'Minimum Time(in s)', with: 100
+    fill_in 'Maximum Time(in s)', with: 1000
+    select '10', :from => 'Videos'
     click_button 'Add'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
-      .and have_content('nonkeyword1;nonkeyword2').and have_content('22 July 2022')
-      .and have_content('22 April 2022').and have_content('00:01:40')
-      .and have_content('00:16:20').and have_content('10')
+      .and have_content('nonkeyword1;nonkeyword2').and have_content('12 Feb 2022')
+      .and have_content('11 Feb 2022').and have_content('00:01:40')
+      .and have_content('00:16:40').and have_content('10')
   end
 end
