@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'user able to see filters', type: :system do
   include LoginHelper
 
-  xit 'shows api key to users' do
+  it 'shows api key to users' do
     User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
 
     log_in_as('bla@bla.com')
@@ -19,7 +19,7 @@ feature 'user able to see filters', type: :system do
       .and have_field('Maximum Time(in s)').and have_field('Videos')
   end
 
-  xit 'remembers channels details that user added' do
+  it 'remembers channels details that user added' do
     User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
 
     log_in_as('bla@bla.com')

@@ -1,4 +1,4 @@
-<tr>
+<tr id=<%= "channel_#{channel.id}" %>>
     <td><%= channel.identifier %></td>
     <td><%= channel.filter.published_after.to_fs(:rfc822) if channel.filter.published_after %></td>
     <td><%= channel.filter.published_before.to_fs(:rfc822) if channel.filter.published_before %></td>
@@ -7,6 +7,6 @@
     <td><%= channel.filter.videos %></td>
     <td><%= channel.filter.keywords %></td>
     <td><%= channel.filter.non_keywords %></td>
-    <td><button>Edit</button></td>
+    <td><%= link_to 'Delete', channel_path(channel.id), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %></td>
     <td><button>Delete</button></td>
 </tr>

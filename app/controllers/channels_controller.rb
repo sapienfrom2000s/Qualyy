@@ -24,6 +24,16 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def destroy
+    @channel = Channel.find(params[:id])
+    @channel.destroy
+
+    respond_to do |format|
+      format.html { redirect_to channels_path, status: :see_other }
+      format.turbo_stream
+    end
+  end
+
   def show
     @channel = Channel.find(params[:id])
   end
