@@ -38,6 +38,23 @@ class ChannelsController < ApplicationController
     @channel = Channel.find(params[:id])
   end
 
+  def edit
+    @channel = Channel.find(params[:id])
+  end
+
+  def update
+    @channel = Channel.find(params[:id])
+
+    if @channel.update(channel_params) && @channel.filter.update(filter_params)
+      respond_to do |format|
+        format.html { redirect_to @channel, notice: "Channel details successfully updated" }
+        format.turbo_stream
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   
   def filter_params

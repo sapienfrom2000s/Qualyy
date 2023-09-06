@@ -1,0 +1,19 @@
+<%= form_with model: channel do |form| %>
+  <%= form.label :identifier, 'Channel ID' %><br>
+  <%= form.text_field :identifier, :size => 28 %><br>
+  <%= form.label :keywords %><br>
+  <%= form.text_field :keywords, :size => 35, :value => channel.filter.keywords %><br>
+  <%= form.label :non_keywords, 'Non Keywords' %><br>
+  <%= form.text_field :non_keywords, :size => 35, :value => channel.filter.non_keywords %><br>
+  <%= form.label :published_before, 'Published Before' %><br>
+  <%= form.date_field :published_before, :value => channel.filter.published_before %><br>
+  <%= form.label :published_after, 'Published After' %><br>
+  <%= form.date_field :published_after, :value => channel.filter.published_after %><br>
+  <%= form.label :minimum_duration, 'Minimum Time(in s)' %><br>
+  <%= form.number_field :minimum_duration, min: 1, max: 14400, :value => channel.filter.minimum_duration %><br>
+  <%= form.label :maximum_duration, 'Maximum Time(in s)' %><br>
+  <%= form.number_field :maximum_duration, min: 1, max: 14400, :value => channel.filter.maximum_duration %><br>
+  <%= form.label :videos %><br>
+  <%= form.select :videos, ["10", "20", "50", "100", "200", "300", "400"], :value => channel.filter.videos %><br>
+  <%= form.submit "#{button_name}" %>
+<% end %>

@@ -1,21 +1,3 @@
-<%= turbo_frame_tag 'new_channel' do %>
-  <%= form_with model: @channel, :class => 'new-channel-form' do |form| %>
-    <%= form.label :identifier, 'Channel ID' %><br>
-    <%= form.text_field :identifier, :size => 28 %><br>
-    <%= form.label :keywords %><br>
-    <%= form.text_field :keywords, :size => 35 %><br>
-    <%= form.label :non_keywords, 'Non Keywords' %><br>
-    <%= form.text_field :non_keywords, :size => 35 %><br>
-    <%= form.label :published_before, 'Published Before' %><br>
-    <%= form.date_field :published_before %><br>
-    <%= form.label :published_after, 'Published After' %><br>
-    <%= form.date_field :published_after %><br>
-    <%= form.label :minimum_duration, 'Minimum Time(in s)' %><br>
-    <%= form.number_field :minimum_duration, min: 1, max: 14400 %><br>
-    <%= form.label :maximum_duration, 'Maximum Time(in s)' %><br>
-    <%= form.number_field :maximum_duration, min: 1, max: 14400 %><br>
-    <%= form.label :videos %><br>
-    <%= form.select :videos, ["10", "20", "50", "100", "200", "300", "400"] %><br>
-    <%= form.submit 'Add' %>
-  <% end %>
+<%= turbo_frame_tag 'channel_form' do %>
+  <%= render "form", locals = { channel: @channel, button_name: 'Add'} %>
 <% end %>

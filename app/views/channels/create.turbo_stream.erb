@@ -1,2 +1,2 @@
-<%= turbo_stream.append 'channel_list_table', partial: "channels/add", locals: { channel: @channel } %>
-<%= turbo_stream.replace 'new_channel', partial: "channels/new_channel_button" %>
+<%= turbo_stream.append 'channels_table', partial: "channels/add", locals: { channel: @channel } %>
+<%= turbo_stream.replace 'channel_form', partial: "channels/new_channel_button" %>

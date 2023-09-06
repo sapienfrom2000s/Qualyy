@@ -92,7 +92,7 @@ feature 'user able to see filters', type: :system do
     click_link 'Edit'
 
     expect(page).to have_field('Channel ID', with: 'abracadabra').and have_field('Keywords', with: 'keyword1;keyword2')
-      .and have_field('Non Keywords', with: 'nonkeyword1;nonkeyword2').and have_field('Published Before', with: '02122022')
+      .and have_field('Non Keywords', with: 'nonkeyword1;nonkeyword2').and have_field('Published Before', with: '2022-02-12')
       .and have_field('Minimum Time(in s)', with: '100').and have_field('Maximum Time(in s)', with: '1000')
       .and have_field('Videos', with: '10')
   end
