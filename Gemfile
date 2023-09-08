@@ -81,3 +81,5 @@ end
 gem "rubocop-rails", "~> 2.20"
 
 gem "erb_lint", "~> 0.5.0"
+
+gem "faraday", "~> 2.7"
