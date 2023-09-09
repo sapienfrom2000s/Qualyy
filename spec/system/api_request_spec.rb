@@ -13,21 +13,22 @@ feature 'fetch api data and show appropriate response', type: :system do
     channel.user = User.first
     channel.save
 
-    101.times
-      video = Video.new(title:'something', duration: '00:23:22', published: 'today', rating: '99', link: 'something')
-      video.user = User.first
-      video.save
+    allow(Video).to receive(:filter) do
+      101.times do
+        video = Video.new(identifier:'something', title:'something', duration: 45,
+           views: 1000, comments: 1234)
+        video.user = User.first
+        video.save
+      end
     end
-    
+
     sleep 2
 
     visit '/channels'
 
     click_link 'Make Request'
 
-    expect(page).to have_content("You currently have #{videos} videos.\n
-      Make a stronger filter and bring it down to less than 100")
-    end
+    expect(page).to have_content("Your request fetches #{Video.all.count} videos.\nMake a stronger filter and bring it down to less than 100")
   end
 
   xit 'shows list of videos if after applying filters, <= 100 videos gets requested' do

@@ -5,8 +5,8 @@ class CreateFilters < ActiveRecord::Migration[7.0]
       t.date :published_after
       t.text :keywords
       t.text :non_keywords
-      t.integer :minimum_duration
-      t.integer :maximum_duration
+      t.integer :minimum_duration, :default => 0
+      t.integer :maximum_duration, :default => 14400
       t.integer :videos
       
       t.timestamps

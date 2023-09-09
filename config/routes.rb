@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/api_key', to: 'api_key#update'
 
   resources :channels
+  resources :videos, only: [:index, :update, :destroy]
 
   devise_scope :user do
     get 'login', to: 'api_key#show'

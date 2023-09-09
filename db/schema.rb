@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_03_113626) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_08_114633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_113626) do
     t.date "published_after"
     t.text "keywords"
     t.text "non_keywords"
-    t.integer "minimum_duration"
-    t.integer "maximum_duration"
+    t.integer "minimum_duration", default: 0
+    t.integer "maximum_duration", default: 14400
     t.integer "videos"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,6 +48,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_113626) do
     t.string "youtube_api_key", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string "identifier"
+    t.integer "duration"
+    t.date "published_on"
+    t.string "title"
+    t.integer "views"
+    t.integer "comments"
+    t.integer "likes"
+    t.integer "dislikes"
+    t.integer "rating"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
 end

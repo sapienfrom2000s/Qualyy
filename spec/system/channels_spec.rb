@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user able to see filters', type: :system do
+feature 'user able to create, edit, delete channels', type: :system do
   include LoginHelper
 
   it 'shows api key to users' do
@@ -37,13 +37,13 @@ feature 'user able to see filters', type: :system do
     fill_in 'Published After', with: '02112022'
     fill_in 'Minimum Time(in s)', with: 100
     fill_in 'Maximum Time(in s)', with: 1000
-    select '10', :from => 'Videos'
+    select '50', :from => 'Videos'
     click_button 'Add'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
       .and have_content('nonkeyword1;nonkeyword2').and have_content('12 Feb 2022')
       .and have_content('11 Feb 2022').and have_content('00:01:40')
-      .and have_content('00:16:40').and have_content('10')
+      .and have_content('00:16:40').and have_content('50')
   end
 
   it 'deletes channel info when delete link is clicked' do
@@ -54,7 +54,7 @@ feature 'user able to see filters', type: :system do
     sleep 2
 
     channel = Channel.create(identifier:'abracadabra')
-    channel.filter = Filter.new(videos: 10)
+    channel.filter = Filter.new(videos: 50)
     channel.user = User.first
     channel.save
 
@@ -86,7 +86,7 @@ feature 'user able to see filters', type: :system do
     fill_in 'Published After', with: '02112022'
     fill_in 'Minimum Time(in s)', with: 100
     fill_in 'Maximum Time(in s)', with: 1000
-    select '10', :from => 'Videos'
+    select '50', :from => 'Videos'
     click_button 'Add'
 
     click_link 'Edit'
@@ -94,6 +94,6 @@ feature 'user able to see filters', type: :system do
     expect(page).to have_field('Channel ID', with: 'abracadabra').and have_field('Keywords', with: 'keyword1;keyword2')
       .and have_field('Non Keywords', with: 'nonkeyword1;nonkeyword2').and have_field('Published Before', with: '2022-02-12')
       .and have_field('Minimum Time(in s)', with: '100').and have_field('Maximum Time(in s)', with: '1000')
-      .and have_field('Videos', with: '10')
+      .and have_field('Videos', with: '50')
   end
 end

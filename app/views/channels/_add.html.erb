@@ -8,5 +8,5 @@
     <td><%= channel.filter.keywords %></td>
     <td><%= channel.filter.non_keywords %></td>
     <td><%= link_to 'Edit', edit_channel_path(channel), data: { turbo_frame: "channel_form" } %></td>
-    <td><%= link_to 'Delete', channel_path(channel), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %></td>
+    <td><%= link_to 'Delete', channel_path(channel), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :id => "delete_#{channel.id}" %></td>
 </tr>

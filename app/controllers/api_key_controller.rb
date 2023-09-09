@@ -11,7 +11,7 @@ class ApiKeyController < ApplicationController
 
   def update
     if current_user.update(api_key_params)
-      flash[:success] = 'API Key successfully updated'
+      flash[:notice] = 'API Key successfully updated'
       redirect_to api_key_path
     else
       @api_key = current_user.youtube_api_key      

@@ -10,5 +10,5 @@ class User < ApplicationRecord
   validates :youtube_api_key, length: { in: 1..50 }
 
   has_many :channels
-
+  has_many :videos
 end
