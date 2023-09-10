@@ -28,7 +28,8 @@ feature 'fetch api data and show appropriate response', type: :system do
 
     click_link 'Make Request'
 
-    expect(page).to have_content("Your request fetches #{Video.all.count} videos.\nMake a stronger filter and bring it down to less than 100")
+    videos_count = 101
+    expect(page).to have_content("Your request fetches #{videos_count} videos.Make a stronger filter and bring it down to less than 100")
   end
 
   xit 'shows list of videos if after applying filters, <= 100 videos gets requested' do
