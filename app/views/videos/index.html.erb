@@ -1,1 +1,2 @@
 <p> Executed </p>
+<%= ActionCable.server.broadcast({channel: "ApiUpdateChannel", room: "To_User"}, { body: "This Room is Best Room." }) %>

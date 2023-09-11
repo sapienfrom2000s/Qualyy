@@ -3,6 +3,4 @@
 
 import { createConsumer } from "@rails/actioncable"
 
-consumer.subscriptions.create({ channel: "ApiUpdateChannel", room: `To_User_${current_user.id}` })
-
 export default createConsumer()

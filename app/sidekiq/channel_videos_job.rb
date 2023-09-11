@@ -5,9 +5,11 @@ class ChannelVideosJob
 
   # BASE_URL="https://www.googleapis.com/youtube/v3/"
 
-  def perform(how_hard = "super hard", how_long = 1)
+  def perform(current_user_id, how_hard = "super hard", how_long = 1)
     sleep how_long
     puts 'blabbering finished'
+    puts "#{current_user_id}"
+    ActionCable.server.broadcast("To_User", { body: "This Room is Best Room." })
   end
 
   # def perform(*args)

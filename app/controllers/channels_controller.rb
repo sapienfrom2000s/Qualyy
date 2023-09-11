@@ -2,7 +2,7 @@ class ChannelsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @channels = current_user.channels
+    # @channels = current_user.channels
   end
 
   def new

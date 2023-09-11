@@ -1,8 +1,8 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("ApiUpdateChannel", {
+consumer.subscriptions.create({channel: "ApiUpdateChannel", room: "To_User"}, {
   connected() {
-    // Called when the subscription is ready for use on the server
+    console.log('blabla')
   },
 
   disconnected() {
@@ -10,6 +10,6 @@ consumer.subscriptions.create("ApiUpdateChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    console.log('klakla')
   }
 });

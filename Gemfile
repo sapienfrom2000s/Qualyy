@@ -83,3 +83,7 @@ gem "rubocop-rails", "~> 2.20"
 gem "erb_lint", "~> 0.5.0"
 
 gem "faraday", "~> 2.7"
+
+gem "sidekiq", "~> 7.1"
+
+gem "redis", "~> 5.0"

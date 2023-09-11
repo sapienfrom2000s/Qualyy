@@ -2,8 +2,6 @@ require 'faraday'
 
 class Video < ApplicationRecord
   belongs_to :user
-
-  BASE_URL="https://www.googleapis.com/youtube/v3/"
   
   def self.filter(current_user)
     list = []
