@@ -1,2 +1,11 @@
-<p> Executed </p>
-<%= ActionCable.server.broadcast({channel: "ApiUpdateChannel", room: "To_User"}, { body: "This Room is Best Room." }) %>
+<%= turbo_stream_from "some_name" %>
+
+<%= render partial: 'videos/bla', locals: {variable: 'base string'} %>
+
+<%= turbo_frame_tag "videos_list" do %>
+  <p> Executed </p>
+<% end %>
+
+<% video = Video.new(identifier: 'identifier') %>
+<% video.user = current_user %>
+<%= video.save %>

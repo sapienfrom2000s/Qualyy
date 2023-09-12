@@ -2,7 +2,8 @@ require 'faraday'
 
 class Video < ApplicationRecord
   belongs_to :user
-  
+
+  after_create_commit -> { broadcast_replace_to "some_name", partial: "videos/bla", locals: {variable: 'broadcast'}, target: "background_job_updates" }
   def self.filter(current_user)
     list = []
     # channel video list contains title as well, so filtering it here will reduce api calls in videos

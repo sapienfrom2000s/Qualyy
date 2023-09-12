@@ -10,6 +10,6 @@ consumer.subscriptions.create({channel: "ApiUpdateChannel", room: "To_User"}, {
   },
 
   received(data) {
-    console.log('klakla')
+    console.log('hello i was called');
   }
 });
