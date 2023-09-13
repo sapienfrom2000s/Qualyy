@@ -1,0 +1,22 @@
+
+[1mFrom:[0m /home/bla/.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/activemodel-7.0.7.2/lib/active_model/attribute_set/builder.rb:42 ActiveModel::LazyAttributeSet#fetch_value:
+
+    [1;34m41[0m: [32mdef[0m [1;34mfetch_value[0m(name, &block)
+ => [1;34m42[0m:   [32mif[0m attr = @attributes[name]
+    [1;34m43[0m:     [32mreturn[0m attr.value(&block)
+    [1;34m44[0m:   [32mend[0m
+    [1;34m45[0m: 
+    [1;34m46[0m:   @casted_values.fetch(name) [32mdo[0m
+    [1;34m47[0m:     value_present = [1;36mtrue[0m
+    [1;34m48[0m:     value = values.fetch(name) { value_present = [1;36mfalse[0m }
+    [1;34m49[0m: 
+    [1;34m50[0m:     [32mif[0m value_present
+    [1;34m51[0m:       type = additional_types.fetch(name, types[name])
+    [1;34m52[0m:       @casted_values[name] = type.deserialize(value)
+    [1;34m53[0m:     [32melse[0m
+    [1;34m54[0m:       attr = default_attribute(name, value_present, value)
+    [1;34m55[0m:       attr.value(&block)
+    [1;34m56[0m:     [32mend[0m
+    [1;34m57[0m:   [32mend[0m
+    [1;34m58[0m: [32mend[0m
+
