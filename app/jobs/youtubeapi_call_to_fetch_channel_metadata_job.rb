@@ -5,20 +5,22 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
 
   attr_reader :list, :current_user
 
-  BASE_URL="https://www.googleapis.com/youtube/v3/"
+  after_perform do
+    FetchvideometadataJob.perform_later(current_user, list)
+  end
 
   def perform(current_user)
     @current_user = current_user
     @list = []
     current_user.channels.each do |channel|
       begin
-        video_list = fetch_channel_videos(channel)
+        video_list = fetch_channel_videos(channel.includes(:filter))
       rescue => exception
         puts exception #broadcast exception with red
         next
       end
       video_list = keywords_filter(video_list, channel.filter)
-      list << video_list
+      list << { channel.identifier => video_list }
     end
   end
 
@@ -26,7 +28,6 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
 
   def fetch_channel_videos(channel)
     video_list = []
-    binding.pry
     url = formurl(channel)
     responseObject = fetch(url)
     video_list << responseObject['items']
@@ -43,11 +44,6 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
     url += "&publishedAfter=#{channel.filter.published_after.rfc3339}" if channel.filter.published_after
     url += "&publishedBefore=#{channel.filter.published_before.rfc3339}" if channel.filter.published_before
     url
-  end
-
-  def fetch(url)
-    response = Faraday.get(url)
-    responseObject = JSON.parse(response.body)
   end
 
   def paginated_results(args)

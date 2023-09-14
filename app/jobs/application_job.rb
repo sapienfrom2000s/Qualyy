@@ -1,7 +1,10 @@
 class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  BASE_URL="https://www.googleapis.com/youtube/v3/"
+
+  def fetch(url)
+    response = Faraday.get(url)
+    responseObject = JSON.parse(response.body)
+  end
+
 end
