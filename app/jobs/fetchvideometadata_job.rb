@@ -1,20 +1,19 @@
 class FetchvideometadataJob < ApplicationJob
   queue_as :default
 
-  attr_reader :list, :current_user
+  attr_reader :list
 
   after_perform do
-    FetchVideoDislikesJob.perform_later(current_user, list)
+    FetchVideoDislikesJob.perform_later(list)
   end
 
-  def perform(current_user, channel_list)
+  def perform(channel_list)
     @list = []
-    @current_user = current_user
     channel_list.each do |channel, video_list|
       video_list.each do |video|
         url = formurl(video['id']['videoId'], current_user.youtube_api_key)
         begin
-          video_metadata = fetch(url)          
+          video_metadata = fetch(url)
         rescue => exception
           puts exception # display error in broadcast
           next          

@@ -3,10 +3,10 @@ require 'faraday'
 class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   queue_as :default
 
-  attr_reader :list, :current_user
+  attr_reader :list
 
   after_perform do
-    FetchvideometadataJob.perform_later(current_user, list)
+    FetchvideometadataJob.perform_later(list)
   end
 
   def perform(current_user)
