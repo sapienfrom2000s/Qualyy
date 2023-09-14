@@ -1,7 +1,7 @@
 class FetchvideometadataJob < ApplicationJob
   queue_as :default
 
-  attr_reader :list
+  attr_reader :list, :current_user
 
   after_perform do
     FetchVideoDislikesJob.perform_later(current_user, list)
@@ -9,6 +9,7 @@ class FetchvideometadataJob < ApplicationJob
 
   def perform(current_user, channel_list)
     @list = []
+    @current_user = current_user
     channel_list.each do |channel, video_list|
       video_list.each do |video|
         url = formurl(video['id']['videoId'], current_user.youtube_api_key)
