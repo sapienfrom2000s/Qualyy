@@ -10,9 +10,9 @@
   <%= form.label :published_after, 'Published After' %><br>
   <%= form.date_field :published_after %><br>
   <%= form.label :minimum_duration, 'Minimum Time(in s)' %><br>
-  <%= form.number_field :minimum_duration, min: 1, max: 14400 %><br>
+  <%= form.number_field :minimum_duration, min: 1, max: 14400, required: true %><br>
   <%= form.label :maximum_duration, 'Maximum Time(in s)' %><br>
-  <%= form.number_field :maximum_duration, min: 1, max: 14400 %><br>
+  <%= form.number_field :maximum_duration, min: 1, max: 14400, required: true %><br>
   <%= form.label :videos %><br>
   <%= form.select :videos, ["50", "100", "200", "300", "400"] %><br>
   <%= form.submit "#{button_name}" %>
