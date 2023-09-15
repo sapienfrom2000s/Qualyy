@@ -18,7 +18,7 @@ class FetchvideometadataJob < ApplicationJob
         puts exception # display error in broadcast
         next          
       end
-      video_metadata['id'] = video['id']['videoId']
+      video_metadata['identifier'] = video['id']['videoId']
       list << video_metadata if metadata_satisfies_duration_filter?(video_metadata, 
         { minimum_duration: video['minimum_duration'],
         maximum_duration: video['maximum_duration'] })
