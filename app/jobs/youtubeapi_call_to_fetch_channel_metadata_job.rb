@@ -6,7 +6,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   attr_reader :list
 
   after_perform do
-    FetchvideometadataJob.perform_later(list)
+    FetchvideometadataJob.perform_later(list.flatten, current_user)
   end
 
   def perform(current_user)
@@ -14,17 +14,26 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
     @list = []
     current_user.channels.each do |channel|
       begin
-        video_list = fetch_channel_videos(channel.includes(:filter))
+        video_list = fetch_channel_videos(channel)
       rescue => exception
         puts exception #broadcast exception with red
         next
       end
       video_list = keywords_filter(video_list, channel.filter)
-      list << { channel.identifier => video_list }
+      add_duration_filter_as_property(video_list,
+         channel.filter.minimum_duration, channel.filter.maximum_duration)
+      list << video_list
     end
   end
 
   private
+
+  def add_duration_filter_as_property(video_list, minimum_duration, maximum_duration)
+    video_list.each do |video|
+      video['minimum_duration'] = minimum_duration
+      video['maximum_duration'] = maximum_duration
+    end
+  end
 
   def fetch_channel_videos(channel)
     video_list = []
@@ -39,7 +48,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   def formurl(channel)
     url = BASE_URL + 'search?' + "key=#{current_user.youtube_api_key}"
     url += "&channelId=#{channel.identifier}"
-    url += "&maxResults=50"
+    url += "&maxResults=5"
     url += "&part=snippet"
     url += "&publishedAfter=#{channel.filter.published_after.rfc3339}" if channel.filter.published_after
     url += "&publishedBefore=#{channel.filter.published_before.rfc3339}" if channel.filter.published_before
@@ -62,12 +71,12 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   end
 
   def keywords_filter(video_list, filter)
-    video_list.select do |item|
+    video_list.filter do |item|
       string = item['snippet']['title']
       keywords = filter.keywords.split(';')
       non_keywords = filter.non_keywords.split(';')
-      keywords_in_string?({string: string, keywords: keywords}) unless keywords.empty? &&\
-       keywords_not_in_string?({string: string, keywords: non_keywords}) unless keywords.empty?
+      keywords_in_string?({string: string, keywords: keywords}) &&\
+       keywords_not_in_string?({string: string, keywords: non_keywords})
     end
   end
 
