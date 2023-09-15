@@ -50,8 +50,8 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
     url += "&channelId=#{channel.identifier}"
     url += "&maxResults=50"
     url += "&part=snippet"
-    url += "&publishedAfter=#{channel.filter.published_after.rfc3339}" if channel.filter.published_after
-    url += "&publishedBefore=#{channel.filter.published_before.rfc3339}" if channel.filter.published_before
+    url += "&publishedAfter=#{channel.filter.published_after.to_time.utc.iso8601}" if channel.filter.published_after
+    url += "&publishedBefore=#{channel.filter.published_before.to_time.utc.iso8601}" if channel.filter.published_before
     url
   end
 
