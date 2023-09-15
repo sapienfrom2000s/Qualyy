@@ -13,7 +13,7 @@ class PushMetadataToDatabaseJob < ApplicationJob
       dislikes = video['statistics']['dislikes']
       video = Video.new(identifier: identifier, duration: duration,
          published_on: published_on, title: title, views: views,
-          comments: comments, dislikes: dislikes, rating:  )
+          comments: comments, dislikes: dislikes, rating: (((comments/views)+(likes/views))/2)-(dislikes/views)
       video.user = current_user
       video.save
     end
