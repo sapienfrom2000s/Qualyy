@@ -48,7 +48,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   def formurl(channel)
     url = BASE_URL + 'search?' + "key=#{current_user.youtube_api_key}"
     url += "&channelId=#{channel.identifier}"
-    url += "&maxResults=5"
+    url += "&maxResults=50"
     url += "&part=snippet"
     url += "&publishedAfter=#{channel.filter.published_after.rfc3339}" if channel.filter.published_after
     url += "&publishedBefore=#{channel.filter.published_before.rfc3339}" if channel.filter.published_before
