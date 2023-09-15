@@ -4,19 +4,20 @@ class FetchVideoDislikesJob < ApplicationJob
   attr_reader :list
 
   after_perform do
-    PushMetadataToDatabaseJob.perform_later(list)
+    PushMetadataToDatabaseJob.perform_later(list, current_user)
   end
 
-  def perform(list)
+  def perform(list, current_user)
+    @current_user = current_user
     @list = list.first(100).map do |metadata|
-      url = form_url(metadata['items'][0]['snippet']['id'])
+      url = form_url(metadata['id'])
       begin
         dislike_object = fetch(url)
       rescue => exception
         puts exception # broadcast it 
         next
       end
-      add_dislikes_to_metadata(metadata['items'][0]['statistics'], dislike_object['dislikes'])
+      add_dislikes_to_hash(metadata['statistics'], dislike_object['dislikes'])
       metadata
     end.reject {|item| item.nil?}
   end
