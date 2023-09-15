@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_08_114633) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_092118) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_114633) do
     t.date "published_after"
     t.text "keywords"
     t.text "non_keywords"
-    t.integer "minimum_duration", default: 0
-    t.integer "maximum_duration", default: 14400
+    t.integer "minimum_duration", default: 0, null: false
+    t.integer "maximum_duration", default: 14400, null: false
     t.integer "videos"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_114633) do
     t.integer "comments"
     t.integer "likes"
     t.integer "dislikes"
-    t.integer "rating"
+    t.float "rating"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
