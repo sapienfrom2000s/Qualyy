@@ -1,4 +1,23 @@
-# README
+# What is Qualyy
+
+The idea is to scrape good content from youtube channels based on their views, comments, dislikes and likes. To get
+additional control, user can filter based on title keywords, non keywords, date and time duration. I calculate
+the metrics by a simple formula rating = (((comments/views)+(likes/views))/2)-(dislikes/views). Then, it is displayed in 
+descending order. Do tell me if it can be improved.
+*keywords should be seperated by ';'. And they act as `and` logical operator. `fish;turtle` fish and turtle both
+must be present in the title. It is case insensitive.
+*non-keywords again should be seperated by ';'. And they act as `or` logical operator. `fish;turtle` fish or turtle
+is present in title, it will be filtered out.
+
+# How does it work?
+
+refer to #BackgroundJob and sockets
+
+# Limitation
+
+Youtube allows only 10,000 units per day. Use it wisely.
+Youtubedislike api allows only 100 calls per minute. This
+is why max 100 videos will be shown to user.
 
 I have skipped the nested attributes form as I have forgotten some of it and it would require some
 time to relearn it.
@@ -44,3 +63,8 @@ results to *expect*. I know that there will be three seperate api calls(potentia
 
 3) third to *youtubedislikeapi* regarding *video* dislikes
     Very similar to second api. Finally push to db with calculated metrics, video metadata and update view with stream. When all the videos gets pushed display a sort button.
+
+# Bugs
+
+Published after and published before feature doesn't work. *fixed
+sometimes generates duplicate result
