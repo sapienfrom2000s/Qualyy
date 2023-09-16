@@ -11,6 +11,7 @@ class FetchvideometadataJob < ApplicationJob
     @current_user = current_user
     @list = []
     video_list.each do |video|
+      logger.info "\n"*5
       urls = form_urls(video['id']['videoId'], current_user.youtube_api_key)
       begin
         video_metadata = fetch(urls)
@@ -18,6 +19,7 @@ class FetchvideometadataJob < ApplicationJob
         puts exception # display error in broadcast
         next          
       end
+      logger.info video_metadata
       video_metadata['identifier'] = video['id']['videoId']
       list << video_metadata if metadata_satisfies_duration_filter?(video_metadata, 
         { minimum_duration: video['minimum_duration'],
