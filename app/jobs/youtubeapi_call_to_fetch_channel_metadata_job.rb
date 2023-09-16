@@ -38,6 +38,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
   def fetch_channel_videos(channel)
     video_list = []
     url = formurl(channel)
+    logger.info url
     responseObject = fetch(url)
     video_list << responseObject['items']
     nextPageToken = responseObject['nextPageToken']
@@ -50,6 +51,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
     url += "&channelId=#{channel.identifier}"
     url += "&maxResults=50"
     url += "&part=snippet"
+    url += "&type=video"
     url += "&publishedAfter=#{channel.filter.published_after.to_time.utc.iso8601}" if channel.filter.published_after
     url += "&publishedBefore=#{channel.filter.published_before.to_time.utc.iso8601}" if channel.filter.published_before
     url
