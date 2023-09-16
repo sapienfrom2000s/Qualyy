@@ -67,4 +67,4 @@ results to *expect*. I know that there will be three seperate api calls(potentia
 # Bugs
 
 Published after and published before feature doesn't work. *fixed
-sometimes generates duplicate result
+sometimes generates duplicate result *fixed
