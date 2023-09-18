@@ -68,3 +68,10 @@ results to *expect*. I know that there will be three seperate api calls(potentia
 
 Published after and published before feature doesn't work. *fixed
 sometimes generates duplicate result *fixed
+
+# Todo
+
+1. [this](https://github.com/sapienfrom2000s/Qualyy/blob/a28e24e35421d652f1a07b7b4b1f8922b02a7d6b/app/jobs/youtubeapi_call_to_fetch_channel_metadata_job.rb#L18) should be replaced with a specific error that is expected.
+2. [this](https://github.com/sapienfrom2000s/Qualyy/blob/main/app/jobs/fetchvideometadata_job.rb#L40) creates too many objects, can be replaced with template string or string interpolation.
+3. Faraday paralell requests can be used to reduce processing time
+4. Add minimum and maximum views as filter
