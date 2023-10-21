@@ -52,6 +52,8 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'pry-byebug', require: true
 end
 
 group :development do
@@ -72,16 +74,6 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-
-group :development, :test do
-  gem 'rspec-rails', '~> 6.0.0'
-  gem 'pry-byebug', require: true
-end
-
 gem "rubocop-rails", "~> 2.20"
-
-gem "erb_lint", "~> 0.5.0"
-
 gem "faraday", "~> 2.7"
-
 gem 'simplecov', require: false, group: :test
