@@ -27,7 +27,6 @@ class ChannelsController < ApplicationController
     @channel.destroy
 
     respond_to do |format|
-      format.html { redirect_to channels_path, status: :see_other }
       format.turbo_stream
     end
   end
