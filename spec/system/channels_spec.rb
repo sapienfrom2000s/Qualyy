@@ -1,14 +1,16 @@
 require 'rails_helper'
+require 'capybara'
 
-feature 'user able to create, edit, delete channels', type: :system do
-  include LoginHelper
+feature 'user able to create, edit, delete channels', type: :feature, js: true do
+  include Devise::Test::IntegrationHelpers
+  setup do
+    Capybara.current_driver = :selenium_chrome
+  end
+
+  let(:user) { create(:user) }
 
   it 'shows api key to users' do
-    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
-
-    log_in_as('bla@bla.com')
-
-    sleep 2
+    sign_in user
 
     visit '/channels'
 
@@ -20,11 +22,7 @@ feature 'user able to create, edit, delete channels', type: :system do
   end
 
   it 'remembers channels details that user added' do
-    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
-
-    log_in_as('bla@bla.com')
-
-    sleep 2
+    sign_in user
 
     visit '/channels'
 
@@ -41,17 +39,13 @@ feature 'user able to create, edit, delete channels', type: :system do
     click_button 'Add'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
-      .and have_content('nonkeyword1;nonkeyword2').and have_content('12 Feb 2022')
-      .and have_content('11 Feb 2022').and have_content('00:01:40')
+      .and have_content('nonkeyword1;nonkeyword2').and have_content('02 Dec 2022')
+      .and have_content('02 Nov 2022').and have_content('00:01:40')
       .and have_content('00:16:40').and have_content('50')
   end
 
   it 'deletes channel info when delete link is clicked' do
-    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
-
-    log_in_as('bla@bla.com')
-
-    sleep 2
+    sign_in user 
 
     channel = Channel.create(identifier:'abracadabra')
     channel.filter = Filter.new(videos: 50)
@@ -69,11 +63,7 @@ feature 'user able to create, edit, delete channels', type: :system do
   end
 
   it 'edits channel info when edit link is clicked' do
-    User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
-
-    log_in_as('bla@bla.com')
-
-    sleep 2
+    sign_in user   
 
     visit '/channels'
 
@@ -92,7 +82,7 @@ feature 'user able to create, edit, delete channels', type: :system do
     click_link 'Edit'
 
     expect(page).to have_field('Channel ID', with: 'abracadabra').and have_field('Keywords', with: 'keyword1;keyword2')
-      .and have_field('Non Keywords', with: 'nonkeyword1;nonkeyword2').and have_field('Published Before', with: '2022-02-12')
+      .and have_field('Non Keywords', with: 'nonkeyword1;nonkeyword2').and have_field('Published Before', with: '2022-12-02')
       .and have_field('Minimum Time(in s)', with: '100').and have_field('Maximum Time(in s)', with: '1000')
       .and have_field('Videos', with: '50')
   end

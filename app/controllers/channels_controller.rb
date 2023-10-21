@@ -11,14 +11,12 @@ class ChannelsController < ApplicationController
 
   def create
     @filter = Filter.new(filter_params)
-    @channel = Channel.new(channel_params)
+    @channel = current_user.channels.new(channel_params)
 
     @channel.filter = @filter
-    @channel.user = current_user
 
     if @channel.save
       respond_to do |format|
-        format.html { redirect_to @channel, notice: "Quote was successfully created." }
         format.turbo_stream
       end
     else
@@ -49,7 +47,6 @@ class ChannelsController < ApplicationController
 
     if @channel.update(channel_params) && @channel.filter.update(filter_params)
       respond_to do |format|
-        format.html { redirect_to @channel, notice: "Channel details successfully updated" }
         format.turbo_stream
       end
     else
