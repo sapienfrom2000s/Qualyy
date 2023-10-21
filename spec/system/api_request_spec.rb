@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'fetch api data and show appropriate response', type: :system do
-  include LoginHelper
 
   xit 'shows warning if after applying filters, more than 100 videos gets requested' do
     User.create(email: 'bla@bla.com', password: 'password', youtube_api_key: 'arandomnumber', name: 'Bla')
