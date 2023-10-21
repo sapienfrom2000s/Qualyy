@@ -6,4 +6,4 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-User.create(name: 'johndoe', email: 'johndoe@example.com', youtube_api_key: 'randomstring')
+User.create(name: 'johndoe', email: 'johndoe@example.com', youtube_api_key: 'randomstring', password: 'password')
