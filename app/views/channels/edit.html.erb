@@ -1,4 +1,4 @@
 <%= turbo_frame_tag 'channel_form' do %>
-  <%= render "edit_form", locals = { channel: @channel, button_name: 'Update'} %>
+  <%= render "form", locals = { channel: @channel, button_name: 'Update'} %>
   <%= turbo_stream.remove("delete_#{@channel.id}") %>
 <% end %>

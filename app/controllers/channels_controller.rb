@@ -7,13 +7,11 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = Channel.new
+    @channel.filter = Filter.new
   end
 
   def create
-    @filter = Filter.new(filter_params)
     @channel = current_user.channels.new(channel_params)
-
-    @channel.filter = @filter
 
     if @channel.save
       respond_to do |format|
@@ -45,7 +43,7 @@ class ChannelsController < ApplicationController
   def update
     @channel = Channel.find(params[:id])
 
-    if @channel.update(channel_params) && @channel.filter.update(filter_params)
+    if @channel.update(channel_params) 
       respond_to do |format|
         format.turbo_stream
       end
@@ -56,11 +54,7 @@ class ChannelsController < ApplicationController
 
   private
   
-  def filter_params
-    params.require(:channel).permit(:keywords, :non_keywords, :minimum_duration, :maximum_duration, :videos, :published_after, :published_before)
-  end
-
   def channel_params
-    params.require(:channel).permit(:identifier)
+    params.require(:channel).permit(:identifier, filter_attributes: [:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :videos])
   end
 end
