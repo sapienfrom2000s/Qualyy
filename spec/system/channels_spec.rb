@@ -46,8 +46,7 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'deletes channel' do
-    filter = create(:filter)    
-    channel = create(:channel, user: user, filter: filter)
+    channel = create(:channel, user: user)
     sign_in user 
 
     visit '/channels'
@@ -62,18 +61,17 @@ feature 'user', type: :feature, js: true do
 
   it 'edits channel details' do
     
-    filter = create(:filter)    
-    channel = create(:channel, user: user, filter: filter)
+    channel = create(:channel, user: user)
     sign_in user   
 
     visit channels_path
 
     click_link 'Edit'
 
-    expect(page).to have_field('Channel ID', with: channel.identifier).and have_field('Keywords', with: filter.keywords)
-      .and have_field('Non Keywords', with: filter.non_keywords).and have_field('Published Before', with: '2022-12-02')
-      .and have_field('Minimum Time(in s)', with: filter.minimum_duration).and have_field('Maximum Time(in s)', with: filter.maximum_duration)
-      .and have_field('Videos', with: filter.videos)
+    expect(page).to have_field('Channel ID', with: channel.identifier).and have_field('Keywords', with: channel.keywords)
+      .and have_field('Non Keywords', with: channel.non_keywords).and have_field('Published Before', with: '2022-12-02')
+      .and have_field('Minimum Time(in s)', with: channel.minimum_duration).and have_field('Maximum Time(in s)', with: channel.maximum_duration)
+      .and have_field('Videos', with: channel.videos)
 
     fill_in 'Channel ID', with: 'abracadabra'
     fill_in 'Keywords', with: 'keyword1;keyword2'

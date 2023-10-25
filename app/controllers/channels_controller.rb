@@ -7,7 +7,6 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = Channel.new
-    @channel.filter = Filter.new
   end
 
   def create
@@ -54,6 +53,6 @@ class ChannelsController < ApplicationController
   private
   
   def channel_params
-    params.require(:channel).permit(:identifier, filter_attributes: [:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :videos])
+    params.require(:channel).permit(:identifier,:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :videos)
   end
 end
