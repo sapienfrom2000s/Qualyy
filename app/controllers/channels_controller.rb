@@ -53,6 +53,6 @@ class ChannelsController < ApplicationController
   private
   
   def channel_params
-    params.require(:channel).permit(:identifier,:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :videos)
+    params.require(:channel).permit(:identifier,:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :no_of_videos)
   end
 end

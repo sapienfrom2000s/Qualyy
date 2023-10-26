@@ -4,7 +4,7 @@
     <td><%= channel.published_before.to_fs(:rfc822) if channel.published_before %></td>
     <td><%= Time.at(channel.minimum_duration).utc.strftime("%H:%M:%S") if channel.minimum_duration %></td>
     <td><%= Time.at(channel.maximum_duration).utc.strftime("%H:%M:%S") if channel.maximum_duration %></td>
-    <td><%= channel.videos %></td>
+    <td><%= channel.no_of_videos %></td>
     <td><%= channel.keywords %></td>
     <td><%= channel.non_keywords %></td>
     <td><%= link_to 'Edit', edit_channel_path(channel), data: { turbo_frame: "channel_form" } %></td>

@@ -1,4 +1,4 @@
 class Channel < ApplicationRecord
-  validates :identifier, length: { in: 1..25 }
+  has_many :videos
   belongs_to :user
 end
