@@ -20,14 +20,9 @@ class Fetch
   def self.video_dislikes_batch(video_ids)
   end
 
-  def self.channel_metadata_url(api_key, id, published_after=nil, published_before=nil)
-    url = BASE_URL + 'search?' + "key=#{api_key}"
-    url += "&channelId=#{id}"
-    url += "&maxResults=50"
-    url += "&part=snippet"
-    url += "&type=video"
-    url += "&publishedAfter=#{published_after}" if published_after
-    url += "&publishedBefore=#{published_before}" if published_before 
+  def self.channel_metadata_url( **args )
+    url = BASE_URL + 'search?maxResults=50&part=snippet&type=video'
+    args.compact.each {|key,value| url += "&#{key}=#{value}"}
     url
   end
 
