@@ -12,9 +12,16 @@ RSpec.describe Youtube, type: :model do
 
   describe '::Video' do
     it 'fetches metadata of a video' do
+      # id for first video posted on youtube
       id = 'jNQXAC9IVRw'
       metadata = Youtube::Video.metadata(id, Rails.application.credentials.youtube_api_key)
       expect(metadata.keys).to include('publishedAt', 'title', 'duration', 'viewCount', 'likeCount', 'commentCount')
+    end
+
+    it 'fetches dislikes of a video' do
+      id = 'jNQXAC9IVRw'
+      dislikes = Youtube::Video.dislikes(id)
+      expect(dislikes).to be >= 0
     end
   end
 end
