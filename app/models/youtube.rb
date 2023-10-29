@@ -1,10 +1,10 @@
 require 'faraday'
+require 'youtube_helper'
 
 class Youtube 
 
   class Channel
-
-    BASE_URL="https://www.googleapis.com/youtube/v3/"
+    extend YoutubeHelper
 
     def self.videos(videos, **args)
       url = url(args)
@@ -18,7 +18,7 @@ class Youtube
     end
 
     def self.url(args)
-      url = BASE_URL + 'search?maxResults=50&part=snippet&type=video'
+      url = 'https://www.googleapis.com/youtube/v3/search?maxResults=50&part=snippet&type=video'
       args.compact.each {|key,value| url += "&#{key}=#{value}"}
       url
     end
@@ -39,10 +39,17 @@ class Youtube
     def self.addNextTokenToURL(token, url)
       url + "&pageToken=#{token}"
     end
+  end
 
-    def self.request(url)
-      response = Faraday.get(url)
-      responseObject = JSON.parse(response.body)
-    end
+  class Video
+    extend YoutubeHelper
+
+    def self.metadata(video_id, api_key)
+      data = {}
+      ['statistics', 'contentDetails', 'snippet'].each do |part|
+        data[part] = request("https://www.googleapis.com/youtube/v3/videos?part=#{part}&id=#{video_id}&key=#{api_key}")['items'][0][part]
+      end
+      {}.merge(data['statistics'], data['contentDetails'], data['snippet'])
+    end 
   end
 end
