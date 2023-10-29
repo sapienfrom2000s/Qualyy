@@ -12,8 +12,10 @@ RSpec.describe Youtube, type: :model do
 
   describe '::Video' do
     it 'fetches metadata of a video' do
-      metadata = Youtube::Video.metadata('jNQXAC9IVRw')
+      id = 'jNQXAC9IVRw'
+      metadata = Youtube::Video.metadata(id, Rails.application.credentials.youtube_api_key)
       expect(metadata.keys).to include('publishedAt', 'title', 'duration', 'viewCount', 'likeCount', 'commentCount')
     end
   end
 end
+
