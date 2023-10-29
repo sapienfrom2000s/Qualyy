@@ -51,5 +51,9 @@ class Youtube
       end
       {}.merge(data['statistics'], data['contentDetails'], data['snippet'])
     end 
+
+    def self.dislikes(video_id)
+      request("https://returnyoutubedislikeapi.com/votes?videoId=#{video_id}")['dislikes']
+    end
   end
 end
