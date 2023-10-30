@@ -4,7 +4,6 @@ require 'youtube_helper'
 class Youtube 
 
   class Channel
-    extend YoutubeHelper
 
     def self.videos(videos, **args)
       url = url(args)
@@ -39,10 +38,14 @@ class Youtube
     def self.addNextTokenToURL(token, url)
       url + "&pageToken=#{token}"
     end
+
+    def self.request(url)
+     response = Faraday.get(url)
+     responseObject = JSON.parse(response.body)
+    end
   end
 
   class Video
-    extend YoutubeHelper
 
     def self.metadata(video_id, api_key)
       data = {}
@@ -55,5 +58,10 @@ class Youtube
     def self.dislikes(video_id)
       request("https://returnyoutubedislikeapi.com/votes?videoId=#{video_id}")['dislikes']
     end
+
+    def self.request(url)
+    response = Faraday.get(url)
+    responseObject = JSON.parse(response.body)
+   end
   end
 end
