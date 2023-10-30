@@ -14,7 +14,7 @@ class ApiKeyController < ApplicationController
       flash[:notice] = 'API Key successfully updated'
       redirect_to api_key_path
     else
-      @api_key = current_user.youtube_api_key      
+      @api_key = current_user.youtube_api_key
       render :edit, status: :unprocessable_entity
     end
   end

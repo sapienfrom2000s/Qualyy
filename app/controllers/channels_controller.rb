@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @channels = current_user.channels
   end
@@ -41,7 +41,7 @@ class ChannelsController < ApplicationController
   def update
     @channel = Channel.find(params[:id])
 
-    if @channel.update(channel_params) 
+    if @channel.update(channel_params)
       respond_to do |format|
         format.turbo_stream
       end
@@ -51,8 +51,9 @@ class ChannelsController < ApplicationController
   end
 
   private
-  
+
   def channel_params
-    params.require(:channel).permit(:identifier,:keywords, :non_keywords, :published_before, :published_after, :minimum_duration, :maximum_duration, :no_of_videos)
+    params.require(:channel).permit(:identifier, :keywords, :non_keywords, :published_before, :published_after,
+                                    :minimum_duration, :maximum_duration, :no_of_videos)
   end
 end
