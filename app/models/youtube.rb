@@ -16,10 +16,9 @@ class Youtube
       { args[:channelId] => video_ids.flatten }
     end
 
-    def self.url(args)
-      url = 'https://www.googleapis.com/youtube/v3/search?maxResults=50&part=snippet&type=video'
-      args.compact.each {|key,value| url += "&#{key}=#{value}"}
-      url
+    def self.url(args, params = { maxResults: 50, type: :video, part: :snippet }.merge(args))
+      'https://www.googleapis.com/youtube/v3/search?' +
+       params.map{|key, value| [key, value].join('=')}.join('&')
     end
 
     private
