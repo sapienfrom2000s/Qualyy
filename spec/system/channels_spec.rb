@@ -36,7 +36,7 @@ feature 'user', type: :feature, js: true do
     fill_in 'Published After', with: '02112022'
     fill_in 'Minimum Time(in s)', with: 100
     fill_in 'Maximum Time(in s)', with: 1000
-    select '50', :from => 'No of videos'
+    select '50', from: 'No of videos'
     click_button 'Add'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
@@ -46,8 +46,8 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'deletes channel' do
-    channel = create(:channel, user: user)
-    sign_in user 
+    channel = create(:channel, user:)
+    sign_in user
 
     visit '/channels'
 
@@ -55,22 +55,24 @@ feature 'user', type: :feature, js: true do
 
     click_link 'Delete'
     page.accept_alert
-    
+
     expect(page).to_not have_content(channel.identifier)
   end
 
   it 'edits channel details' do
-    
-    channel = create(:channel, user: user)
-    sign_in user   
+    channel = create(:channel, user:)
+    sign_in user
 
     visit channels_path
 
     click_link 'Edit'
 
-    expect(page).to have_field('Channel ID', with: channel.identifier).and have_field('Keywords', with: channel.keywords)
+    expect(page).to have_field('Channel ID',
+                               with: channel.identifier).and have_field('Keywords', with: channel.keywords)
       .and have_field('Non Keywords', with: channel.non_keywords).and have_field('Published Before', with: '2022-12-02')
-      .and have_field('Minimum Time(in s)', with: channel.minimum_duration).and have_field('Maximum Time(in s)', with: channel.maximum_duration)
+      .and have_field('Minimum Time(in s)',
+                      with: channel.minimum_duration).and have_field('Maximum Time(in s)',
+                                                                     with: channel.maximum_duration)
       .and have_field('No of videos', with: channel.no_of_videos)
 
     fill_in 'Channel ID', with: 'abracadabra'
@@ -80,7 +82,7 @@ feature 'user', type: :feature, js: true do
     fill_in 'Published After', with: '02112022'
     fill_in 'Minimum Time(in s)', with: 100
     fill_in 'Maximum Time(in s)', with: 1000
-    select '50', :from => 'No of videos'
+    select '50', from: 'No of videos'
     click_button 'Update'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
