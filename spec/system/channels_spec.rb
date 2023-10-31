@@ -4,10 +4,6 @@ require 'capybara'
 feature 'user', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
-  setup do
-    Capybara.current_driver = :selenium_chrome
-  end
-
   let(:user) { create(:user) }
 
   it 'able to see fields' do

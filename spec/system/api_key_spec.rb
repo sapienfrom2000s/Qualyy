@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user able to edit youtube api key', type: :system do
+feature 'user able to edit youtube api key', type: :feature do
   include Devise::Test::IntegrationHelpers
 
   let(:user) { create(:user) }
