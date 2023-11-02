@@ -6,7 +6,7 @@ class Youtube
     def self.videos(videos, **args)
       url = url(args)
       video_ids = []
-      response_object = request(url)
+      response_object = fetch_data(url)
       video_ids << response_object['items'].map { |item| item.dig('id', 'videoId') }
       next_page_token = response_object['nextPageToken']
       # videos will always be a multiple of 50 in frontend
@@ -22,7 +22,7 @@ class Youtube
       url = add_next_token_to_url(args[:next_page_token], args[:url])
       video_ids = []
       args[:pages].times do
-        response_object = request(url)
+        response_object = fetch_data(url)
         video_ids << response_object['items'].map { |item| item.dig('id', 'videoId') }
         url = add_next_token_to_url(response_object['nextPageToken'], args[:url])
       end
@@ -33,7 +33,7 @@ class Youtube
       url + "&pageToken=#{token}"
     end
 
-    def self.request(url)
+    def self.fetch_data(url)
       response = Faraday.get(url)
       JSON.parse(response.body)
     end
@@ -41,20 +41,21 @@ class Youtube
 
   class Video
     def self.metadata(video_id, api_key)
-      data = {}
-      %w[statistics contentDetails snippet].each do |part|
-        data[part] = request("https://www.googleapis.com/youtube/v3/videos?part=#{part}&id=#{video_id}&key=#{api_key}")['items'][0][part]
-      end
-      {}.merge(data['statistics'], data['contentDetails'], data['snippet'])
+      data = fetch_data('https://www.googleapis.com/youtube/v3/videos' ,{:part => [:snippet, :contentDetails, :statistics], id: video_id, key: api_key })['items'][0]
+      
+      data['snippet'].merge data['contentDetails'], data['statistics']
     end
 
     def self.dislikes(video_id)
-      request("https://returnyoutubedislikeapi.com/votes?videoId=#{video_id}")['dislikes']
+      fetch_data('https://returnyoutubedislikeapi.com/votes', {videoId: video_id})['dislikes']
     end
 
-    def self.request(url)
-      response = Faraday.get(url)
-      JSON.parse(response.body)
+    def self.fetch_data(url, params)
+      connection = Faraday.new(
+  url: ,request: { params_encoder: Faraday::FlatParamsEncoder },
+  params: , headers: {'Content-Type' => 'application/json'}
+) { |builder| builder.response :json }
+      connection.get.body
     end
   end
 end
