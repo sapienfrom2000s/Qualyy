@@ -14,7 +14,7 @@ module Youtube
       { args[:channelId] => video_ids.flatten }
     end
 
-    def url(args, params = { maxResults: 50, type: :video, part: :snippet }.merge(args))
+    def url(args, params = { maxResults: 50, type: :video, part: :snippet}.merge(args))
       "https://www.googleapis.com/youtube/v3/search?#{params.map { |key, value| [key, value].join('=') }.join('&')}"
     end
 

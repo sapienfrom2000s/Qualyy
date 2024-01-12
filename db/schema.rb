@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_26_103158) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_11_150739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_26_103158) do
     t.integer "maximum_duration"
     t.integer "minimum_duration"
     t.integer "no_of_videos"
+    t.index ["identifier"], name: "index_channels_on_identifier", unique: true
     t.index ["user_id"], name: "index_channels_on_user_id"
   end
 
@@ -55,9 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_26_103158) do
     t.float "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "channel_id"
+    t.string "channel_id"
     t.index ["channel_id"], name: "index_videos_on_channel_id"
   end
 
-  add_foreign_key "videos", "channels"
+  add_foreign_key "videos", "channels", primary_key: "identifier"
 end
