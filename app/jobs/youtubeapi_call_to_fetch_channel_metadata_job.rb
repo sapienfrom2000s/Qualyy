@@ -11,88 +11,37 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
 
   def perform(current_user)
     @current_user = current_user
-    @list = []
+    @list = []  
     current_user.channels.each do |channel|
       begin
-        video_list = fetch_channel_videos(channel)
+        publishedAfter = channel.published_after ? channel.published_after.to_time.utc.iso8601 : Time.at(0).utc.iso8601
+        publishedBefore = channel.published_before ? channel.published_before.to_time.utc.iso8601 : Time.now.utc.iso8601
+        video_list = Youtube::Channel.videos(channel.no_of_videos, channelId: channel.identifier,
+          publishedAfter: , publishedBefore: , key: current_user.youtube_api_key,
+          )
+      @list << video_list
       rescue => exception
         puts exception #broadcast exception with red
-        next
       end
-      video_list = keywords_filter(video_list, channel.filter)
-      add_duration_filter_as_property(video_list,
-         channel.filter.minimum_duration, channel.filter.maximum_duration)
-      list << video_list
-    end
-  end
-
-  private
-
-  def add_duration_filter_as_property(video_list, minimum_duration, maximum_duration)
-    video_list.each do |video|
-      video['minimum_duration'] = minimum_duration
-      video['maximum_duration'] = maximum_duration
-    end
-  end
-
-  def fetch_channel_videos(channel)
-    video_list = []
-    url = formurl(channel)
-    logger.info url
-    responseObject = fetch(url)
-    video_list << responseObject['items']
-    nextPageToken = responseObject['nextPageToken']
-    video_list << paginated_results({nextPageToken: nextPageToken, pages: (channel.filter.videos/50)-1, url: url})
-    video_list.flatten
-  end
-
-  def formurl(channel)
-    url = BASE_URL + 'search?' + "key=#{current_user.youtube_api_key}"
-    url += "&channelId=#{channel.identifier}"
-    url += "&maxResults=50"
-    url += "&part=snippet"
-    url += "&type=video"
-    url += "&publishedAfter=#{channel.filter.published_after.to_time.utc.iso8601}" if channel.filter.published_after
-    url += "&publishedBefore=#{channel.filter.published_before.to_time.utc.iso8601}" if channel.filter.published_before
-    url
-  end
-
-  def paginated_results(args)
-    url = addNextTokenToURL(args[:nextPageToken], args[:url])
-    video_list = []
-    args[:pages].times do
-      responseObject = fetch(url)
-      video_list << responseObject['items']
-      url = addNextTokenToURL(responseObject['nextPageToken'], args[:url])
-    end
-    video_list
-  end
-
-  def addNextTokenToURL(token, url)
-    url + "&pageToken=#{token}"
-  end
-
-  def keywords_filter(video_list, filter)
-    video_list.filter do |item|
-      string = item['snippet']['title']
-      keywords = filter.keywords.split(';')
-      non_keywords = filter.non_keywords.split(';')
-      keywords_in_string?({string: string, keywords: keywords}) &&\
-       keywords_not_in_string?({string: string, keywords: non_keywords})
-    end
-  end
-
-  def keywords_in_string?(args)
-    args[:keywords].all? do |keyword|
-      keyword = keyword.downcase
-      !(args[:string].downcase.scan(/#{keyword}/).empty?)
-    end
-  end
-
-  def keywords_not_in_string?(args)
-    args[:keywords].all? do |keyword|
-      keyword = keyword.downcase
-      args[:string].downcase.scan(/#{keyword}/).empty?
+      @list.each do |channels|
+        channels.each  do |channel_id, videos|
+          videos.each do |video_id|
+            video_data = Youtube::Video.metadata(video_id, current_user.youtube_api_key)
+            channel = current_user.channels.where(identifier: channel_id)
+            duration = ActiveSupport::Duration.parse(video_data['duration']).to_i
+            next unless duration.between?(channel.first.minimum_duration, channel.first.maximum_duration)
+            video_title = StringUtils.new(video_data['title'])
+            next unless video_title.keywords_present?(channel.first.keywords.split(' '))
+            next unless video_title.keywords_absent?(channel.first.keywords.split(' '))
+            dislikes = Youtube::Video.dislikes(video_id)
+            video = Video.new(identifier: video_id, channel_id: , duration: , title: video_title.string,
+             views: video_data['viewCount'].to_i, comments: video_data['commentCount'].to_i,
+             likes: video_data['likeCount'].to_i, dislikes: dislikes, rating: video_data['likeCount'].to_i/dislikes,
+             published_on: video_data['publishedAt'])
+            video.save
+          end
+        end
+      end
     end
   end
 end
