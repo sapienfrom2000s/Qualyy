@@ -80,3 +80,6 @@ gem 'devise', '~> 4.9'
 gem 'faraday', '~> 2.7'
 gem 'rubocop-rails', '~> 2.20'
 gem 'simplecov', require: false, group: :test
+
+# css-framework
+gem "bulma-rails", "~> 0.9.4"
