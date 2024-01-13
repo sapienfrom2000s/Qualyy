@@ -1,22 +1,24 @@
-<table class="table">
-  <tr>
-    <th>Title</th>
-    <th>Rating</th>
-    <th>Duration</th>
-    <th>Views</th>
-    <th>Comments</th>
-    <th>Published On</th>
-    <th>Link</th>
+<div class="columns is-centered m-6">
+  <table class="result table is-striped">
+    <tr>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Duration</th>
+      <th>Views</th>
+      <th>Comments</th>
+      <th>Published On</th>
+      <th>Link</th>
+    </tr>
+    <% @videos.each do |video| %>
+    <tr>
+      <td><%= video.title %></td>
+      <td><%= video.rating %></td>
+      <td><%= Time.at(video.duration) .utc.strftime("%H:%M:%S") %></td>
+      <td><%= video.views %></td>
+      <td><%= video.comments %></td>
+      <td><%= video.published_on %></td>
+      <td><%= link_to "Link", "https://www.youtube.com/watch?v=#{video.identifier}" %></td>
   </tr>
-  <% @videos.each do |video| %>
-  <tr>
-    <td><%= video.title %></td>
-    <td><%= video.rating %></td>
-    <td><%= Time.at(video.duration) .utc.strftime("%H:%M:%S") %></td>
-    <td><%= video.views %></td>
-    <td><%= video.comments %></td>
-    <td><%= video.published_on %></td>
-    <td><%= link_to "Link", "https://www.youtube.com/watch?v=#{video.identifier}" %></td>
-</tr>
-  <% end %>
-</table>
+    <% end %>
+  </table>
+</div>
