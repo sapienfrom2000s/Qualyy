@@ -25,4 +25,9 @@ FactoryBot.define do
     sequence(:rating, 90)
     sequence(:title) { |n| "randomtitle#{n}" }
   end
+
+  factory :category do
+    sequence(:name) { |n| "Music_#{n}" }
+  end
+  
 end
