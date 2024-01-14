@@ -83,3 +83,6 @@ gem 'simplecov', require: false, group: :test
 
 # css-framework
 gem "bulma-rails", "~> 0.9.4"
+
+# templating language
+gem 'slim-rails'
