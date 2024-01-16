@@ -54,19 +54,19 @@ feature 'user', type: :feature, js: true do
     visit category_channels_path(category1)
 
     expect(page).to have_content(channel.identifier)
-
+    page.current_window.resize_to(1600, 900)
     click_link 'Delete'
     page.accept_alert
 
     expect(page).to_not have_content(channel.identifier)
   end
 
-  it 'edits channel details' do
+  it 'edits channel details', js: true do
     channel = create(:channel, user: user1, category: category1)
     sign_in user1
 
     visit category_channels_path(category1)
-
+    page.current_window.resize_to(1600, 900)
     click_link 'Edit'
 
     expect(page).to have_field('Channel ID',

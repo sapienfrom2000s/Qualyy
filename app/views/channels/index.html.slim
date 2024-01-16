@@ -1,4 +1,27 @@
-= render partial: "channels/all", locals: { channels: current_user.channels }
+= turbo_frame_tag 'channel_list' do
+  table#channels_table[border="1"]
+
+    tr
+      th
+        | Channel ID
+      th
+        | Published After
+      th
+        | Published Before
+      th
+        | Min Duration
+      th
+        | Max Duration
+      th
+        | Videos
+      th
+        | Keywords
+      th
+        | Non-Keywords
+      th
+      th
+    - @channels.each do |channel|
+      == render partial: "channels/show", locals: { channel: channel }
 = render 'make_request'
 = link_to 'Cached Videos', videos_path
 = render 'new_channel_button'
