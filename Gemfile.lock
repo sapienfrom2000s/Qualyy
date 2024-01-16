@@ -220,6 +220,11 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_live_reload (0.3.5)
+      listen
+      nio4r
+      railties
+      websocket-driver
     railties (7.0.7.2)
       actionpack (= 7.0.7.2)
       activesupport (= 7.0.7.2)
@@ -358,6 +363,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rails (~> 7.0.7, >= 7.0.7.2)
+  rails_live_reload
   rspec-rails (~> 6.0.0)
   rubocop-rails (~> 2.20)
   selenium-webdriver

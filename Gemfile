@@ -63,6 +63,7 @@ group :development do
   gem 'web-console'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem "rails_live_reload"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
