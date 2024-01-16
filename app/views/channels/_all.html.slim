@@ -1,0 +1,24 @@
+= turbo_frame_tag 'channel_list' do
+  table#channels_table[border="1"]
+
+    tr
+      th
+        | Channel ID
+      th
+        | Published After
+      th
+        | Published Before
+      th
+        | Min Duration
+      th
+        | Max Duration
+      th
+        | Videos
+      th
+        | Keywords
+      th
+        | Non-Keywords
+      th
+      th
+    - channels.each do |channel|
+      == render partial: "channels/add", locals: { channel: channel }

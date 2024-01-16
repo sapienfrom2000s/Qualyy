@@ -1,0 +1,23 @@
+| <tr id=
+= "channel_#{channel.id}"
+| > 
+td
+  = channel.identifier
+td
+  = channel.published_after.to_fs(:rfc822) if channel.published_after
+td
+  = channel.published_before.to_fs(:rfc822) if channel.published_before
+td
+  = Time.at(channel.minimum_duration).utc.strftime("%H:%M:%S") if channel.minimum_duration
+td
+  = Time.at(channel.maximum_duration).utc.strftime("%H:%M:%S") if channel.maximum_duration
+td
+  = channel.no_of_videos
+td
+  = channel.keywords
+td
+  = channel.non_keywords
+td
+  = link_to 'Edit', edit_category_channel_path(params[:category_id], channel), data: { turbo_frame: "channel_form" }
+td
+  = link_to 'Delete', category_channel_path(params[:category_id], channel), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :id => "delete_#{channel.id}"
