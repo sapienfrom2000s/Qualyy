@@ -1,8 +1,9 @@
 class ChannelsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_channel, only: %i[ show edit update destroy ]
 
   def index
-    @channels = current_user.channels
+    @channels = current_user.channels.where(category_id: params[:category_id])
   end
 
   def new
@@ -11,6 +12,7 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = current_user.channels.new(channel_params)
+    @channel.category_id = params[:category_id]
 
     if @channel.save
       respond_to do |format|
@@ -22,7 +24,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-    @channel = Channel.find(params[:id])
     @channel.destroy
 
     respond_to do |format|
@@ -31,16 +32,12 @@ class ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.find(params[:id])
   end
 
   def edit
-    @channel = Channel.find(params[:id])
   end
 
   def update
-    @channel = Channel.find(params[:id])
-
     if @channel.update(channel_params)
       respond_to do |format|
         format.turbo_stream
@@ -51,6 +48,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+
+  def set_channel
+    @channel = Channel.find(params[:id])
+  end
 
   def channel_params
     params.require(:channel).permit(:identifier, :keywords, :non_keywords, :published_before, :published_after,

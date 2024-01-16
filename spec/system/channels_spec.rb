@@ -4,12 +4,18 @@ require 'capybara'
 feature 'user', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
-  let(:user) { create(:user) }
+  let(:user1) { create(:user) }
+  let(:category1) { create(:category, user: user1) }
+
+  before(:each) do
+    # bad code, defies the idea of lazy loading
+    category1 #touch
+  end
 
   it 'able to see fields' do
-    sign_in user
+    sign_in user1
 
-    visit '/channels'
+    visit category_channels_path(category1)
 
     click_link 'Add Channel'
 
@@ -19,9 +25,9 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'adds channel details' do
-    sign_in user
+    sign_in user1
 
-    visit channels_path
+    visit category_channels_path(category1)
 
     click_link 'Add Channel'
 
@@ -36,16 +42,16 @@ feature 'user', type: :feature, js: true do
     click_button 'Add'
 
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
-      .and have_content('nonkeyword1;nonkeyword2').and have_content('02 Dec 2022')
-      .and have_content('02 Nov 2022').and have_content('00:01:40')
+      .and have_content('nonkeyword1;nonkeyword2').and have_content('12 Feb 2022')
+      .and have_content('11 Feb 2022').and have_content('00:01:40')
       .and have_content('00:16:40').and have_content('50')
   end
 
   it 'deletes channel' do
-    channel = create(:channel, user:)
-    sign_in user
+    channel = create(:channel, user: user1, category: category1)
+    sign_in user1
 
-    visit '/channels'
+    visit category_channels_path(category1)
 
     expect(page).to have_content(channel.identifier)
 
@@ -56,10 +62,10 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'edits channel details' do
-    channel = create(:channel, user:)
-    sign_in user
+    channel = create(:channel, user: user1, category: category1)
+    sign_in user1
 
-    visit channels_path
+    visit category_channels_path(category1)
 
     click_link 'Edit'
 
@@ -80,10 +86,10 @@ feature 'user', type: :feature, js: true do
     fill_in 'Maximum Time(in s)', with: 1000
     select '50', from: 'No of videos'
     click_button 'Update'
-
+    
     expect(page).to have_content('abracadabra').and have_content('keyword1;keyword2')
-      .and have_content('nonkeyword1;nonkeyword2').and have_content('02 Dec 2022')
-      .and have_content('02 Nov 2022').and have_content('00:01:40')
+      .and have_content('nonkeyword1;nonkeyword2').and have_content('12 Feb 2022')
+      .and have_content('11 Feb 2022').and have_content('00:01:40')
       .and have_content('00:16:40').and have_content('50')
   end
 end

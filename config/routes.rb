@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   get '/api_key/edit', to: 'api_key#edit'
   post '/api_key', to: 'api_key#update'
 
-  resources :channels
+  resources :categories do
+    resources :channels
+  end
+  
   resources :videos, only: [:index, :new]
 
   devise_scope :user do
