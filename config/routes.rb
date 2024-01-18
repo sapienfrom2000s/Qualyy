@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'channels/index'
-
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -22,5 +20,5 @@ Rails.application.routes.draw do
     get 'logout' => 'devise/sessions#destroy'
   end
 
-  root 'channels#index'
+  root 'categories#index'
 end

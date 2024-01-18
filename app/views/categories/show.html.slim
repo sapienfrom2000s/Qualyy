@@ -1,10 +1,11 @@
-p style="color: green" = notice
+= link_to "Add Channel", new_category_channel_path(@category),
+ :class => [:button, 'is-info', 'm-4', :new_category, 'is-pulled-right'],
+  data: {action: 'click->channel-form#open', controller: 'channel-form'}
 
-== render @category
+.is-flex.is-justify-content-center.mt-4
+  == render @category
 
-div
-  => link_to "Edit this category", edit_category_path(@category)
-  '|
-  =< link_to "Back to categories", categories_path
+.is-flex.is-flex-direction-column.is-align-items-center.mt-4.table.is-striped
+  == render partial: 'channels/index', locals: { channels: current_user.channels.where(category_id: @category.id) }
 
-  = button_to "Destroy this category", @category, method: :delete
+== render 'channels/new', locals: { category: @category }
