@@ -1,1 +1,3 @@
-= turbo_stream.append 'channels_table', partial: "channels/show", locals: { channel: @channel }
+= turbo_stream.append 'channels_table', partial: "channels/show",
+ locals: { channel: @channel }
+= turbo_stream.replace 'channel_form_placeholder', partial: "channels/form_placeholder"

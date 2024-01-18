@@ -1,3 +1,2 @@
-= turbo_frame_tag 'channel_form' do
-  = render "form", locals = { channel: @channel, button_name: 'Update', url: category_channel_path(params[:category_id], @channel)}
-  = turbo_stream.remove("delete_#{@channel.id}")
+= render "channels/form", locals = { channel: @channel,
+  button_name: 'Update', url: category_channel_path(@channel.category, @channel)}

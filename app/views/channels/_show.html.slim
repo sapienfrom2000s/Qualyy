@@ -18,6 +18,8 @@ td
 td
   = channel.non_keywords
 td
-  = link_to 'Edit', edit_category_channel_path(params[:id], channel)
+  = link_to 'Edit', edit_category_channel_path(channel.category, channel),
+   data: { turbo_frame: "channel_form_placeholder" }, id: dom_id(channel, :edit)
 td
-  = link_to 'Delete', category_channel_path(params[:id], channel), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :id => "delete_#{channel.id}"
+  = link_to 'Delete', category_channel_path(channel.category, channel),
+   method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :id => "delete_#{channel.id}"
