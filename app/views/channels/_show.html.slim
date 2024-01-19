@@ -4,6 +4,8 @@
 td
   = channel.identifier
 td
+  = channel.name
+td
   = channel.published_after.to_fs(:rfc822) if channel.published_after
 td
   = channel.published_before.to_fs(:rfc822) if channel.published_before

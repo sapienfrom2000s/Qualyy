@@ -18,9 +18,12 @@ RSpec.describe 'Videos', type: :feature do
 
   it 'is listed to current user according to his channel settings' do
     sign_in user1
-    visit videos_path
+    visit album_videos_path(album1)
 
-    expect(page).to have_content('randomtitle1').and have_content('randomtitle2').and have_content(90).and have_content(91).and have_content('02:02:02').and have_content('02:02:03').and have_content(1000).and have_content(1001).and have_content(20).and have_content(21)
+    expect(page).to have_content('randomtitle1').and have_content('randomtitle2')
+    .and have_content(90).and have_content(91).and have_content('02:02:02')
+    .and have_content('02:02:03').and have_content(1000).and have_content(1001)
+    .and have_content(20).and have_content(21)
     expect(page).to_not have_content('randomvideoid3')
   end
 end

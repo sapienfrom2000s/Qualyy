@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_19_060243) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_19_102051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_19_060243) do
     t.integer "minimum_duration"
     t.integer "no_of_videos"
     t.bigint "album_id"
+    t.string "name"
     t.index ["album_id"], name: "index_channels_on_album_id"
     t.index ["identifier"], name: "index_channels_on_identifier", unique: true
     t.index ["user_id"], name: "index_channels_on_user_id"

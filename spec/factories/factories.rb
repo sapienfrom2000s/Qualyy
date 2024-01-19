@@ -8,6 +8,7 @@ FactoryBot.define do
 
   factory :channel do
     sequence(:identifier) { |n| "randomchannelid#{n}" }
+    sequence(:name){|n| "Channel_#{n}"}
     keywords { 'keyword1;keyword2' }
     non_keywords { 'nonkeyword1;nonkeyword2' }
     published_before { Date.new(2_022, 12, 0o2) }

@@ -11,6 +11,8 @@
           = form_with model: channel, url: url do |form|
             = form.label :identifier, 'Channel ID'
             = form.text_field :identifier, :size => 35, :class => 'input'
+            = form.label :name
+            = form.text_field :name, :size => 35, :class => 'input'
             = form.label :keywords
             = form.text_field :keywords, :size => 35, :class => 'input'
             = form.label :non_keywords, 'Non Keywords'
