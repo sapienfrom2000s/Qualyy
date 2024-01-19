@@ -22,6 +22,6 @@ class ApiKeyController < ApplicationController
   private
 
   def api_key_params
-    params.require(:api_key).permit(:youtube_api_key)
+    params.require(:user).permit(:youtube_api_key)
   end
 end

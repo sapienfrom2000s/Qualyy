@@ -1,5 +1,5 @@
 = turbo_frame_tag 'channel_list' do
-  table#channels_table
+  table#channels_table.center-columns-except-first
 
     tr
       th
@@ -22,7 +22,3 @@
       th
     - channels.each do |channel|
       == render partial: "channels/show", locals: { channel: }
-p
-  = link_to "Make Request", new_video_path, :class => ['button', 'is-info']
-  = link_to 'Cached Videos', videos_path, :class => [:button, 'is-info', 'ml-1']
-  / = render 'channels/new_channel_button'

@@ -1,5 +1,5 @@
 .columns.mt-6.is-justify-content-center
   .column.box.m-1.is-half.has-background-light
-    = form_with(url: '/api_key', scope: :api_key, :class=>['is-flex'], :html => { :style => 'gap: 5px;' }) do |form|
+    = form_with(url: '/api_key', scope: :user, :class=>['is-flex'], :html => { :style => 'gap: 5px;' }) do |form|
       = form.text_field :youtube_api_key, :value => @api_key, :size => 30, :class => [:input]
       = form.submit :Update, :class => [:button, 'is-info']

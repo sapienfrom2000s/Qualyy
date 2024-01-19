@@ -7,4 +7,9 @@
 .is-flex.is-flex-direction-column.is-align-items-center.mt-4.table.is-striped
   == render partial: 'channels/index', locals: { channels: current_user.channels.where(album_id: @album.id) }
 
+p.is-flex.is-justify-content-center
+  = link_to "Make Request", new_album_video_path(@album), :class => ['button', 'is-info']
+  = link_to 'Videos', album_videos_path(@album), :class => [:button, 'is-info', 'ml-1']
+  / = render 'channels/new_channel_button'
+
 = turbo_frame_tag 'channel_form_placeholder' do

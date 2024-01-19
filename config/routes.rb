@@ -11,10 +11,9 @@ Rails.application.routes.draw do
 
   resources :albums do
     resources :channels
+    resources :videos, only: [:index, :new]
   end
   
-  resources :videos, only: [:index, :new]
-
   devise_scope :user do
     get 'login', to: 'api_key#show'
     get 'logout' => 'devise/sessions#destroy'

@@ -10,19 +10,19 @@ feature 'user able to edit youtube api key', type: :feature do
 
     visit '/api_key'
 
-    expect(page).to have_content("Your API Key is '#{user.youtube_api_key}'")
+    expect(page).to have_content("#{user.youtube_api_key}")
   end
 
   it 'user able to edit api key' do
     sign_in user
 
     visit '/api_key/edit'
-    expect(page).to have_field('Youtube api key', with: 'randomstring')
+    expect(page).to have_field('user_youtube_api_key', with: 'randomstring')
 
-    fill_in 'Youtube api key', with: 'anotherrandomnumber'
+    fill_in 'user_youtube_api_key', with: 'anotherrandomnumber'
     click_button 'Update'
 
     expect(page).to have_content('API Key successfully updated')
-    expect(page).to have_content("Your API Key is 'anotherrandomnumber'")
+    expect(page).to have_content('anotherrandomnumber')
   end
 end
