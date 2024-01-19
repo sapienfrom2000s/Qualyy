@@ -1,0 +1,9 @@
+.is-flex.is-justify-content-center.mt-4
+  .column.box.m-1.is-half.has-background-light
+    .is-flex.is-align-items-center.is-justify-content-space-between
+      div
+      #key 
+        b
+          = @api_key
+      .edit-btn
+        = link_to "Edit", api_key_edit_path , :class => ['button', 'is-info']

@@ -1,7 +1,0 @@
-<div class='api_key_update_form'>
-  <%= form_with url: '/api_key', scope: :api_key do |form| %>
-    <%= form.label :youtube_api_key %><br>
-    <%= form.text_field :youtube_api_key, :value => @api_key, :size => 30 %>
-    <%= form.submit 'Update' %>
-  <% end %>
-</div>
