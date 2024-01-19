@@ -5,12 +5,12 @@ RSpec.describe 'Videos', type: :feature do
 
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
-  let(:category1) { create(:category, user: user1) }
+  let(:album1) { create(:album, user: user1) }
 
   before(:each) do
-    channel1 = create(:channel, user: user1, category: category1)
-    channel2 = create(:channel, user: user1, category: category1)
-    channel3 = create(:channel, user: user2, category: category1)
+    channel1 = create(:channel, user: user1, album: album1)
+    channel2 = create(:channel, user: user1, album: album1)
+    channel3 = create(:channel, user: user2, album: album1)
     video1 = create(:video, channel: channel1)
     video2 = create(:video, channel: channel2)
     video3 = create(:video, channel: channel3)

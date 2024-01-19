@@ -26,7 +26,7 @@ FactoryBot.define do
     sequence(:title) { |n| "randomtitle#{n}" }
   end
 
-  factory :category do
+  factory :album do
     sequence(:name) { |n| "Music_#{n}" }
   end
   

@@ -10,6 +10,6 @@ class User < ApplicationRecord
   validates :youtube_api_key, length: { in: 1..50 }
 
   has_many :channels
-  has_many :categories, dependent: :destroy
+  has_many :albums, dependent: :destroy
   has_many :videos, through: :channels
 end

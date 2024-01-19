@@ -1,0 +1,13 @@
+.column.box.m-1.is-half.has-background-light
+  .is-flex.is-align-items-center.is-justify-content-space-between
+    div
+    div id="#{dom_id album}" 
+      b
+        = link_to "#{album.name}", album_path(album), :class => 'has-text-grey-darker'
+    div class='group-btns is-flex' style="gap: 5px;"
+      .edit-btn
+        = link_to "Edit", edit_album_path(album), :class => ['button', 'is-info'],
+         :id => dom_id(album, :edit)
+      .delete-btn  
+        = button_to "Delete", album, method: :delete, :class => ['button', 'is-info'],
+         :id => dom_id(album, :delete)

@@ -1,20 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe 'Category', type: :feature do
+RSpec.describe 'Album', type: :feature do
   include Devise::Test::IntegrationHelpers
 
   let(:user1) { create(:user) }
-  let(:category1) { create(:category, user: user1) }
-  let(:category2) { create(:category, user: user1) }
-  let(:channel1) { create(:channel, category: category1, user: user1) }
-  let(:channel2) { create(:channel, category: category2, user: user1) }
+  let(:album1) { create(:album, user: user1) }
+  let(:album2) { create(:album, user: user1) }
+  let(:channel1) { create(:channel, album: album1, user: user1) }
+  let(:channel2) { create(:channel, album: album2, user: user1) }
 
   before(:each) do
     # bad code, defied the purpose of lazy loading
     channel1 # touch
     channel2 # touch
     sign_in user1
-    visit categories_path
+    visit albums_path
   end
 
   it 'is/are listed to the current user' do
@@ -22,23 +22,23 @@ RSpec.describe 'Category', type: :feature do
   end
 
   it 'can be added by the current user' do
-    click_on 'Add Category'
-    fill_in 'category_name', :with => 'Movies'
-    click_on 'Create Category'
+    click_on 'Add Album'
+    fill_in 'album_name', :with => 'Movies'
+    click_on 'Create Album'
 
     expect(page).to have_content('Movies')
   end
 
   it 'can be deleted by the current user' do
-    click_on "delete_category_#{category1.id}"
+    click_on "delete_album_#{album1.id}"
     
     expect(page).not_to have_content('Music_1')
   end
 
   it 'can be edited by the current user' do
-    click_on "edit_category_#{category1.id}"
-    fill_in 'category_name', :with => 'Rock_Music'
-    click_on 'Update Category'
+    click_on "edit_album_#{album1.id}"
+    fill_in 'album_name', :with => 'Rock_Music'
+    click_on 'Update Album'
     
     expect(page).to have_content('Rock_Music')
   end

@@ -3,7 +3,7 @@ class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[ show edit update destroy ]
 
   def index
-    @channels = current_user.channels.where(category_id: params[:category_id])
+    @channels = current_user.channels.where(album_id: params[:album_id])
   end
 
   def new
@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = current_user.channels.new(channel_params)
-    @channel.category_id = params[:category_id]
+    @channel.album_id = params[:album_id]
 
     if @channel.save
       respond_to do |format|

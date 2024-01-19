@@ -1,0 +1,11 @@
+.columns.mt-6.is-justify-content-center
+  .column.box.m-1.is-half.has-background-light
+    = form_with(model: album, :class=>['is-flex'], :html => { :style => 'gap: 5px;' }) do |form|
+      = form.text_field :name, :class => [:input]
+      = form.button :submit, :class => [:button, 'is-info']
+      - if album.errors.any?
+        div style="color: red"
+          h2 = "#{pluralize(album.errors.count, "error")} prohibited this album from being saved:"
+          ul
+            - album.errors.each do |error|
+              li = error.full_message

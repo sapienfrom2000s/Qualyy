@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/api_key/edit', to: 'api_key#edit'
   post '/api_key', to: 'api_key#update'
 
-  resources :categories do
+  resources :albums do
     resources :channels
   end
   
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
     get 'logout' => 'devise/sessions#destroy'
   end
 
-  root 'categories#index'
+  root 'albums#index'
 end

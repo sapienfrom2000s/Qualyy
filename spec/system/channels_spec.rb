@@ -5,17 +5,17 @@ feature 'user', type: :feature, js: true do
   include Devise::Test::IntegrationHelpers
 
   let(:user1) { create(:user) }
-  let(:category1) { create(:category, user: user1) }
+  let(:album1) { create(:album, user: user1) }
 
   before(:each) do
     # bad code, defies the idea of lazy loading
-    category1 #touch
+    album1 #touch
   end
 
   it 'able to see fields' do
     sign_in user1
 
-    visit category_path(category1)
+    visit album_path(album1)
 
     click_link 'Add Channel'
 
@@ -27,7 +27,7 @@ feature 'user', type: :feature, js: true do
   it 'adds channel details', js: true do
     sign_in user1
 
-    visit category_path(category1)
+    visit album_path(album1)
 
     click_link 'Add Channel'
 
@@ -48,10 +48,10 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'deletes channel' do
-    channel = create(:channel, user: user1, category: category1)
+    channel = create(:channel, user: user1, album: album1)
     sign_in user1
 
-    visit category_path(category1)
+    visit album_path(album1)
 
     expect(page).to have_content(channel.identifier)
     page.current_window.resize_to(1600, 900)
@@ -62,10 +62,10 @@ feature 'user', type: :feature, js: true do
   end
 
   it 'edits channel details', js: true do
-    channel = create(:channel, user: user1, category: category1)
+    channel = create(:channel, user: user1, album: album1)
     sign_in user1
 
-    visit category_path(category1)
+    visit album_path(album1)
     page.current_window.resize_to(1600, 900)
 
     click_link "edit_channel_#{channel.id}"

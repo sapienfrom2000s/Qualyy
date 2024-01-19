@@ -1,0 +1,10 @@
+= link_to "Add Channel", new_album_channel_path(@album),
+:class => [:button, 'is-info', 'm-4', :new_album, 'is-pulled-right'], data: { turbo_frame: 'channel_form_placeholder' }
+
+.is-flex.is-justify-content-center.mt-4
+  == render @album
+
+.is-flex.is-flex-direction-column.is-align-items-center.mt-4.table.is-striped
+  == render partial: 'channels/index', locals: { channels: current_user.channels.where(album_id: @album.id) }
+
+= turbo_frame_tag 'channel_form_placeholder' do

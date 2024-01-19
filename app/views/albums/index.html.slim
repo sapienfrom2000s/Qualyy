@@ -1,0 +1,5 @@
+= link_to "Add Album", new_album_path, :class => [:button, 'is-info', 'm-4', :new_album, 'is-pulled-right']
+
+.columns.mt-6.is-flex-direction-column.is-align-items-center.has-text-centered
+  - @albums.each do |album|
+    == render album
