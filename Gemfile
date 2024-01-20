@@ -87,3 +87,5 @@ gem "bulma-rails", "~> 0.9.4"
 
 # templating language
 gem 'slim-rails'
+
+gem "sidekiq", "~> 5.2.8"
