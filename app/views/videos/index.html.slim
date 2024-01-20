@@ -1,0 +1,60 @@
+.columns.is-centered.m-6.is-flex.is-flex-direction-column
+  div
+    button.button.is-info.is-pulled-right[data-action='filter#open' data-controller='filter']
+      | Filter
+  table.center-columns-except-first.table.is-striped#table
+    tr
+      th
+        | Title
+      th
+        | Rating
+      th
+        | Duration
+      th
+        | Views
+      th
+        | Comments
+      th
+        | Published On
+      th
+        | Link
+    - @videos.each do |video|
+      tr
+
+      td
+        = video.title
+      td
+        = video.rating
+      td
+        = Time.at(video.duration) .utc.strftime("%H:%M:%S")
+      td.viewCount
+        = (video.views.to_f/1_00_0000).round(2)
+        | M
+      td.commentCount
+        = (video.comments.to_f/1_000).round(2)
+        | K
+      td
+        = video.published_on
+      td
+        = link_to "Link", "https://www.youtube.com/watch?v=#{video.identifier}"
+
+.modal[data-controller='filter']
+  .modal-background
+  .modal-card
+    header.modal-card-head
+      p.modal-card-title style= 'text-align: center;'
+        | Filters
+      button.delete[aria-label="close" data-action='click->filter#close']
+    section.modal-card-body
+      .views.is-flex.is-justify-content-space-between
+        input.input.min-views.width-40#min-views[type="number" placeholder="Min views(in M)" data-filter-target='minViews']
+        input.input.min-views.width-40#max-views[type="number" placeholder="Max views(in M)" data-filter-target='maxViews']
+        
+      modal-card-foot.mt-4
+        button.button.is-info.mt-4[data-action='click->filter#reset']
+          | Reset
+        .group-btns.is-pulled-right.mt-4
+          button.button.is-success[data-action='click->filter#apply']
+            | Apply
+          button.button[data-action='click->filter#close']
+            | Cancel

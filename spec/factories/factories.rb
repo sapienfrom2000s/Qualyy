@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :video do
     sequence(:identifier) { |n| "randomvideoid#{n}" }
     sequence(:duration, 7_322)
-    sequence(:views, 1_000)
+    sequence(:views) { |n| (n)*(1_000_000) }
     sequence(:comments, 20)
     sequence(:rating, 90)
     sequence(:title) { |n| "randomtitle#{n}" }

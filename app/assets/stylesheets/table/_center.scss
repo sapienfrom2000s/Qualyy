@@ -1,0 +1,7 @@
+.center-columns-except-first td:not(:first-child) {
+  text-align: center !important;
+}
+
+.center-columns-except-first th:not(:first-child) {
+  text-align: center !important;
+}

@@ -6,24 +6,26 @@ RSpec.describe 'Videos', type: :feature do
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
   let(:album1) { create(:album, user: user1) }
+  let(:album2) { create(:album, user: user1) }
 
-  before(:each) do
+  it 'is listed to current user according to his channel settings' do
     channel1 = create(:channel, user: user1, album: album1)
     channel2 = create(:channel, user: user1, album: album1)
-    channel3 = create(:channel, user: user2, album: album1)
+    channel3 = create(:channel, user: user2, album: album2)
     video1 = create(:video, channel: channel1)
     video2 = create(:video, channel: channel2)
     video3 = create(:video, channel: channel3)
-  end
 
-  it 'is listed to current user according to his channel settings' do
     sign_in user1
     visit album_videos_path(album1)
 
-    expect(page).to have_content('randomtitle1').and have_content('randomtitle2')
-    .and have_content(90).and have_content(91).and have_content('02:02:02')
-    .and have_content('02:02:03').and have_content(1000).and have_content(1001)
-    .and have_content(20).and have_content(21)
-    expect(page).to_not have_content('randomvideoid3')
+    save_and_open_screenshot
+
+    expect(page).to have_content(video1.title).and have_content(video2.title)
+    .and have_content(90.0).and have_content(91.0).and have_content('02:02:02')
+    .and have_content('02:02:03').and have_content("#{(video1.views.to_f/1_000_000).round(2)}M")
+    .and have_content("#{(video1.views.to_f/1_000_000).round(2)}M")
+
+    expect(page).to_not have_content(video3.title)
   end
 end
