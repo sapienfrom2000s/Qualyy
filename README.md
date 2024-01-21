@@ -20,6 +20,10 @@ per minute and 10,000 call per day.
 
 *(optional)* tests can be run through `bundle exec rspec`
 
+# Screencast
+
+![Peek recording itself](https://raw.githubusercontent.com/phw/peek/main/public/screencast.gif)
+
 # Making your first request 
 
 1. Sign Up with correct youtube API Key(you can use `AIzaSyD_y9yJRL7bAcwI7Zsy4v7TE-Z_iPeVFm0`).
