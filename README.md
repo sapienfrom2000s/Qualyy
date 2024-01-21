@@ -22,7 +22,7 @@ per minute and 10,000 call per day.
 
 # Screencast
 
-![Peek recording itself](https://raw.githubusercontent.com/phw/peek/main/public/screencast.gif)
+![Peek recording itself](https://raw.githubusercontent.com/sapienfrom2000s/Qualyy/main/public/screencast.gif)
 
 # Making your first request 
 
