@@ -56,6 +56,10 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-byebug', require: true
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
@@ -63,7 +67,7 @@ group :development do
   gem 'web-console'
   gem 'guard'
   gem 'guard-rspec', require: false
-  gem "rails_live_reload"
+  gem 'rails_live_reload'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -79,13 +83,12 @@ end
 
 gem 'devise', '~> 4.9'
 gem 'faraday', '~> 2.7'
-gem 'rubocop-rails', '~> 2.20'
 gem 'simplecov', require: false, group: :test
 
 # css-framework
-gem "bulma-rails", "~> 0.9.4"
+gem 'bulma-rails', '~> 0.9.4'
 
 # templating language
 gem 'slim-rails'
 
-gem "sidekiq", "~> 5.2.8"
+gem 'sidekiq', '~> 5.2.8'
