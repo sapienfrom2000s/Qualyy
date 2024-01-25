@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature 'user able to edit youtube api key', type: :feature do
+describe 'user able to edit youtube api key', type: :feature do
   include Devise::Test::IntegrationHelpers
 
   let(:user) { create(:user) }
@@ -10,7 +12,7 @@ feature 'user able to edit youtube api key', type: :feature do
 
     visit '/api_key'
 
-    expect(page).to have_content("#{user.youtube_api_key}")
+    expect(page).to have_content(user.youtube_api_key.to_s)
   end
 
   it 'user able to edit api key' do

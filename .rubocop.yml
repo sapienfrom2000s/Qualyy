@@ -1,0 +1,14 @@
+# enable rubocop-rails gem
+require:
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec
+
+# disable cops released in the latest version
+AllCops:
+  NewCops: enable
+
+# disable compulsoury documentation of classes by default
+Style/Documentation:
+  Enabled: false

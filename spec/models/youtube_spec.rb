@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Youtube, type: :model do
+RSpec.describe Youtube do
   describe '::Channel' do
     it 'fetches n number of videos from a channel' do
       # using sony music channel id

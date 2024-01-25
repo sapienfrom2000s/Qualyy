@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Videos', type: :feature do
@@ -22,10 +24,10 @@ RSpec.describe 'Videos', type: :feature do
     save_and_open_screenshot
 
     expect(page).to have_content(video1.title).and have_content(video2.title)
-    .and have_content(90.0).and have_content(91.0).and have_content('02:02:02')
-    .and have_content('02:02:03').and have_content("#{(video1.views.to_f/1_000_000).round(2)}M")
-    .and have_content("#{(video1.views.to_f/1_000_000).round(2)}M")
+      .and have_content(90.0).and have_content(91.0).and have_content('02:02:02')
+      .and have_content('02:02:03').and have_content("#{(video1.views.to_f / 1_000_000).round(2)}M")
+      .and have_content("#{(video1.views.to_f / 1_000_000).round(2)}M")
 
-    expect(page).to_not have_content(video3.title)
+    expect(page).to have_no_content(video3.title)
   end
 end

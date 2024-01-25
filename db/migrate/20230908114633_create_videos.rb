@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateVideos < ActiveRecord::Migration[7.0]
   def change
     create_table :videos do |t|
@@ -10,7 +12,7 @@ class CreateVideos < ActiveRecord::Migration[7.0]
       t.integer :likes
       t.integer :dislikes
       t.integer :rating
-      t.belongs_to :user 
+      t.belongs_to :user
 
       t.timestamps
     end

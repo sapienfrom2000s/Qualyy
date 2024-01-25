@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     name { 'John' }
@@ -8,7 +10,7 @@ FactoryBot.define do
 
   factory :channel do
     sequence(:identifier) { |n| "randomchannelid#{n}" }
-    sequence(:name){|n| "Channel_#{n}"}
+    sequence(:name) { |n| "Channel_#{n}" }
     keywords { 'keyword1;keyword2' }
     non_keywords { 'nonkeyword1;nonkeyword2' }
     published_before { Date.new(2_022, 12, 0o2) }
@@ -21,7 +23,7 @@ FactoryBot.define do
   factory :video do
     sequence(:identifier) { |n| "randomvideoid#{n}" }
     sequence(:duration, 7_322)
-    sequence(:views) { |n| (n)*(1_000_000) }
+    sequence(:views) { |n| n * 1_000_000 }
     sequence(:comments, 20)
     sequence(:rating, 90)
     sequence(:title) { |n| "randomtitle#{n}" }
@@ -30,5 +32,4 @@ FactoryBot.define do
   factory :album do
     sequence(:name) { |n| "Music_#{n}" }
   end
-  
 end

@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 class ChannelsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_channel, only: %i[ show edit update destroy ]
+  before_action :set_channel, only: %i[show edit update destroy]
 
   def index
     @channels = current_user.channels.where(album_id: params[:album_id])
   end
 
+  def show; end
+
   def new
     @channel = Channel.new
   end
+
+  def edit; end
 
   def create
     @channel = current_user.channels.new(channel_params)
@@ -23,20 +29,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def destroy
-    @channel.destroy
-
-    respond_to do |format|
-      format.turbo_stream
-    end
-  end
-
-  def show
-  end
-
-  def edit
-  end
-
   def update
     if @channel.update(channel_params)
       respond_to do |format|
@@ -44,6 +36,14 @@ class ChannelsController < ApplicationController
       end
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @channel.destroy
+
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 

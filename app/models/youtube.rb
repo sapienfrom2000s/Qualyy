@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'youtube_helper'
 
@@ -14,7 +16,7 @@ module Youtube
       { args[:channelId] => video_ids.flatten }
     end
 
-    def url(args, params = { maxResults: 50, type: :video, part: :snippet}.merge(args))
+    def url(args, params = { maxResults: 50, type: :video, part: :snippet }.merge(args))
       "https://www.googleapis.com/youtube/v3/search?#{params.map { |key, value| [key, value].join('=') }.join('&')}"
     end
 
@@ -43,20 +45,21 @@ module Youtube
 
   module Video
     def metadata(video_id, api_key)
-      data = fetch_data('https://www.googleapis.com/youtube/v3/videos' ,{:part => [:snippet, :contentDetails, :statistics], id: video_id, key: api_key })['items'][0]
-      
+      data = fetch_data('https://www.googleapis.com/youtube/v3/videos',
+                        { part: %i[snippet contentDetails statistics], id: video_id, key: api_key })['items'][0]
+
       data['snippet'].merge data['contentDetails'], data['statistics']
     end
 
     def dislikes(video_id)
-      fetch_data('https://returnyoutubedislikeapi.com/votes', {videoId: video_id})['dislikes']
+      fetch_data('https://returnyoutubedislikeapi.com/votes', { videoId: video_id })['dislikes']
     end
 
     def fetch_data(url, params)
       connection = Faraday.new(
-  url: ,request: { params_encoder: Faraday::FlatParamsEncoder },
-  params: , headers: {'Content-Type' => 'application/json'}
-) { |builder| builder.response :json }
+        url:, request: { params_encoder: Faraday::FlatParamsEncoder },
+        params:, headers: { 'Content-Type' => 'application/json' }
+      ) { |builder| builder.response :json }
       connection.get.body
     end
 

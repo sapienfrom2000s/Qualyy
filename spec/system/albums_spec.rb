@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Album', type: :feature do
@@ -9,7 +11,7 @@ RSpec.describe 'Album', type: :feature do
   let(:channel1) { create(:channel, album: album1, user: user1) }
   let(:channel2) { create(:channel, album: album2, user: user1) }
 
-  before(:each) do
+  before do
     # bad code, defied the purpose of lazy loading
     channel1 # touch
     channel2 # touch
@@ -23,7 +25,7 @@ RSpec.describe 'Album', type: :feature do
 
   it 'can be added by the current user' do
     click_on 'Add Album'
-    fill_in 'album_name', :with => 'Movies'
+    fill_in 'album_name', with: 'Movies'
     click_on 'Create Album'
 
     expect(page).to have_content('Movies')
@@ -31,15 +33,15 @@ RSpec.describe 'Album', type: :feature do
 
   it 'can be deleted by the current user' do
     click_on "delete_album_#{album1.id}"
-    
-    expect(page).not_to have_content('Music_1')
+
+    expect(page).to have_no_content('Music_1')
   end
 
   it 'can be edited by the current user' do
     click_on "edit_album_#{album1.id}"
-    fill_in 'album_name', :with => 'Rock_Music'
+    fill_in 'album_name', with: 'Rock_Music'
     click_on 'Update Album'
-    
+
     expect(page).to have_content('Rock_Music')
   end
 end

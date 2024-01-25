@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -6,7 +8,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  mount Sidekiq::Web => "/sidekiq"
+  mount Sidekiq::Web => '/sidekiq'
 
   get '/api_key', to: 'api_key#show'
   get '/api_key/edit', to: 'api_key#edit'
@@ -14,9 +16,9 @@ Rails.application.routes.draw do
 
   resources :albums do
     resources :channels
-    resources :videos, only: [:index, :new]
+    resources :videos, only: %i[index new]
   end
-  
+
   devise_scope :user do
     get 'login', to: 'api_key#show'
     get 'logout' => 'devise/sessions#destroy'

@@ -1,5 +1,6 @@
-class StringUtils
+# frozen_string_literal: true
 
+class StringUtils
   attr_accessor :string
 
   def initialize(string)
@@ -9,7 +10,7 @@ class StringUtils
   def keywords_present?(keywords)
     keywords.all? do |keyword|
       keyword = keyword.downcase
-      !(string.downcase.scan(/#{keyword}/).empty?)
+      !string.downcase.scan(/#{keyword}/).empty?
     end
   end
 
@@ -20,4 +21,3 @@ class StringUtils
     end
   end
 end
-

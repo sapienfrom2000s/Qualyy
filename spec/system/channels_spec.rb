@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'capybara'
 
-feature 'user', type: :feature, js: true do
+describe 'user', :js, type: :feature do
   include Devise::Test::IntegrationHelpers
 
   let(:user1) { create(:user) }
   let(:album1) { create(:album, user: user1) }
 
-  before(:each) do
+  before do
     # bad code, defies the idea of lazy loading
-    album1 #touch
+    album1 # touch
   end
 
   it 'able to see fields' do
@@ -24,7 +26,7 @@ feature 'user', type: :feature, js: true do
       .and have_field('Maximum Time(in s)').and have_field('No of videos')
   end
 
-  it 'adds channel details', js: true do
+  it 'adds channel details', :js do
     sign_in user1
 
     visit album_path(album1)
@@ -35,7 +37,7 @@ feature 'user', type: :feature, js: true do
     fill_in 'Name', with: 'Channel 1'
     fill_in 'Keywords', with: 'keyword1;keyword2'
     fill_in 'Non Keywords', with: 'nonkeyword1;nonkeyword2'
-    fill_in 'Published Before', with: Date.new(2014, 01, 15)
+    fill_in 'Published Before', with: Date.new(2014, 0o1, 15)
     fill_in 'Minimum Time(in s)', with: 100
     fill_in 'Maximum Time(in s)', with: 1000
     select '50', from: 'No of videos'
@@ -44,9 +46,9 @@ feature 'user', type: :feature, js: true do
     page.current_window.resize_to(1600, 900)
 
     expect(page).to have_content('abracadabra').and have_content('Channel 1')
-    .and have_content('keyword1;keyword2').and have_content('nonkeyword1;nonkeyword2')
-    .and have_content('15 Jan 2014').and have_content('00:01:40')
-    .and have_content('00:16:40').and have_content('50')
+      .and have_content('keyword1;keyword2').and have_content('nonkeyword1;nonkeyword2')
+      .and have_content('15 Jan 2014').and have_content('00:01:40')
+      .and have_content('00:16:40').and have_content('50')
   end
 
   it 'deletes channel' do
@@ -60,10 +62,10 @@ feature 'user', type: :feature, js: true do
     click_link 'Delete'
     page.accept_alert
 
-    expect(page).to_not have_content(channel.identifier)
+    expect(page).to have_no_content(channel.identifier)
   end
 
-  it 'edits channel details', js: true do
+  it 'edits channel details', :js do
     channel = create(:channel, user: user1, album: album1)
     sign_in user1
 
@@ -81,7 +83,7 @@ feature 'user', type: :feature, js: true do
     fill_in 'Maximum Time(in s)', with: 1000
     select '50', from: 'No of videos'
     click_button 'Update'
-    
+
     expect(page).to have_content('abracadabra').and have_content('Channel Changed')
       .and have_content('keyword1;keyword2').and have_content('nonkeyword1;nonkeyword2')
       .and have_content('14 Jan 2014').and have_content('00:16:40').and have_content('50')
