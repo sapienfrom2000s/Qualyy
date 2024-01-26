@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User' do
+RSpec.describe User do
   let(:user) { create(:user) }
 
   it 'destroys associated albums and channels' do
@@ -11,5 +11,13 @@ RSpec.describe 'User' do
     create(:channel, album:)
     expect { user.destroy }.to change(Album, :count).by(-1)
                                                     .and change(Channel, :count).by(-2)
+  end
+
+  it 'destroys associated videos when album is destroyed' do
+    album = create(:album, user:)
+    channel = create(:channel, album:)
+    create(:video, channel:, album:)
+    create(:video, channel:, album:)
+    expect { user.albums.first.destroy }.to change(Video, :count).by(-2)
   end
 end
