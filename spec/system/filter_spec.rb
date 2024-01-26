@@ -5,21 +5,21 @@ require 'rails_helper'
 RSpec.describe 'Filter', type: :feature do
   include Devise::Test::IntegrationHelpers
 
-  let(:user1) { create(:user) }
-  let(:user2) { create(:user) }
-  let(:album1) { create(:album, user: user1) }
-  let(:channel1) { create(:channel, user: user1, album: album1) }
+  let(:user) { create(:user) }
+  let(:album) { create(:album, user:) }
+  let(:channel) { create(:channel, album:) }
 
-  it 'wrt views', :js do
-    create(:video, channel: channel1)
-    video2 = create(:video, channel: channel1)
-    create(:video, channel: channel1)
-    create(:video, channel: channel1)
-    video5 = create(:video, channel: channel1)
-    create(:video, channel: channel1)
+  before { sign_in user }
 
-    sign_in user1
-    visit album_videos_path(album1)
+  it 'filters in videos for a given range of views', :js do
+    create(:video, channel:, album:)
+    video2 = create(:video, channel:, album:)
+    create(:video, channel:, album:)
+    create(:video, channel:, album:)
+    video5 = create(:video, channel:, album:)
+    create(:video, channel:, album:)
+
+    visit album_videos_path(album)
 
     page.current_window.resize_to(1600, 900)
 
@@ -31,26 +31,22 @@ RSpec.describe 'Filter', type: :feature do
     click_on 'Apply'
 
     expect(page).to have_no_content('1.0M')
-    expect(page).to have_no_content('6.0M')
+                .and have_no_content('6.0M')
   end
 
-  it 'reset', :js do
-    video1 = create(:video, channel: channel1)
-    video2 = create(:video, channel: channel1)
-    create(:video, channel: channel1)
-    create(:video, channel: channel1)
-    video5 = create(:video, channel: channel1)
-    video6 = create(:video, channel: channel1)
+  it 'resets the filters if a view range is given', :js do
+    video1 = create(:video, channel:, album:)
+    video2 = create(:video, channel:, album:)
+    create(:video, channel:, album:)
+    create(:video, channel:, album:)
+    video5 = create(:video, channel:, album:)
+    video6 = create(:video, channel:, album:)
 
-    sign_in user1
-    visit album_videos_path(album1)
+    visit album_videos_path(album)
 
     page.current_window.resize_to(1600, 900)
 
-    save_and_open_screenshot
-
     click_on 'Filter'
-    save_and_open_screenshot
 
     fill_in id: 'min-views', with: video2.views / 1_000_000
     fill_in id: 'max-views', with: video5.views / 1_000_000
