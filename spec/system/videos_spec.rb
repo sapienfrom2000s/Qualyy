@@ -21,8 +21,6 @@ RSpec.describe 'Videos', type: :feature do
     sign_in user1
     visit album_videos_path(album1)
 
-    save_and_open_screenshot
-
     expect(page).to have_content(video1.title).and have_content(video2.title)
       .and have_content(90.0).and have_content(91.0).and have_content('02:02:02')
       .and have_content('02:02:03').and have_content("#{(video1.views.to_f / 1_000_000).round(2)}M")
