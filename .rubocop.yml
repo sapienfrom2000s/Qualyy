@@ -16,5 +16,5 @@ Style/Documentation:
 # disable checks on db and bin directory
 AllCops:
   Exclude:
-    - 'db/*'
+    - 'db/**/*'
     - 'bin/*'
