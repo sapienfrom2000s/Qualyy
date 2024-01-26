@@ -2,29 +2,35 @@
 
 require 'rails_helper'
 
-describe 'user able to edit youtube api key', type: :feature do
+describe 'Youtube API Key', type: :feature do
   include Devise::Test::IntegrationHelpers
 
   let(:user) { create(:user) }
 
-  it 'shows api key to users' do
+  before do
     sign_in user
-
-    visit '/api_key'
-
-    expect(page).to have_content(user.youtube_api_key.to_s)
+    visit api_key_path
   end
 
-  it 'user able to edit api key' do
-    sign_in user
+  it 'is displayed' do
+    expect(page).to have_content(user.youtube_api_key)
+  end
 
-    visit '/api_key/edit'
-    expect(page).to have_field('user_youtube_api_key', with: 'randomstring')
+  describe 'on edit page' do
+    before { click_link 'Edit' }
 
-    fill_in 'user_youtube_api_key', with: 'anotherrandomnumber'
-    click_button 'Update'
+    it 'is updated' do
+      fill_in 'user_youtube_api_key', with: 'anotherrandomapikey'
+      click_button 'Update'
 
-    expect(page).to have_content('API Key successfully updated')
-    expect(page).to have_content('anotherrandomnumber')
+      # do we need to test flash message and updation of key in different test cases
+
+      expect(page).to have_content('anotherrandomapikey')
+                  .and have_content('API Key successfully updated')
+    end
+
+    it 'is displayed on the text field' do
+      expect(page).to have_field('user_youtube_api_key', with: user.youtube_api_key)
+    end
   end
 end
