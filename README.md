@@ -45,8 +45,9 @@ per minute and 10,000 call per day.
 1. Faraday paralell requests can be used to reduce processing time
 2. Error handling for quota exhaustion
 3. Send meaningful popups to user regarding api calls in the background
-4. Run rubocop through the project
+4. go through some of the suggestions made by rubocop
 5. Tests are flaky
-6. Improve Album model association
+6. ~~Improve Album model association~~
 7. Class which processes background job is messy. Better organisation
    required.
+8. Move keywords and nonkeywords a part of frontend in filters.
