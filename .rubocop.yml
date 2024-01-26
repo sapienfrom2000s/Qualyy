@@ -12,3 +12,9 @@ AllCops:
 # disable compulsoury documentation of classes by default
 Style/Documentation:
   Enabled: false
+
+# disable checks on db and bin directory
+AllCops:
+  Exclude:
+    - 'db/*'
+    - 'bin/*'
