@@ -10,10 +10,10 @@ RSpec.describe 'Videos', type: :feature do
   let(:album) { create(:album, user:) }
   let(:channel) { create(:channel, album:) }
 
-  it 'is listed to current user according to his channel settings' do
-    video1 = create(:video, channel:, album:)
-    video2 = create(:video, channel:, album:)
-    video3 = create(:video, channel:, album:)
+  it 'is listed' do
+    video1 = create(:video, channel:)
+    video2 = create(:video, channel:)
+    video3 = create(:video, channel:)
 
     sign_in user
     visit album_videos_path(album)

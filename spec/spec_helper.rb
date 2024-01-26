@@ -7,7 +7,7 @@ SimpleCov.start
 # Capybara setup
 
 Capybara.configure do |config|
-  config.default_driver = :selenium_chrome_headless
+  config.default_driver = :selenium_chrome
   config.javascript_driver = :selenium_chrome_headless
 end
 # Previous content of test helper now starts here

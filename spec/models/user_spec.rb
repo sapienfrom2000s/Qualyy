@@ -16,8 +16,8 @@ RSpec.describe User do
   it 'destroys associated videos when album is destroyed' do
     album = create(:album, user:)
     channel = create(:channel, album:)
-    create(:video, channel:, album:)
-    create(:video, channel:, album:)
+    create(:video, channel:)
+    create(:video, channel:)
     expect { user.albums.first.destroy }.to change(Video, :count).by(-2)
   end
 end

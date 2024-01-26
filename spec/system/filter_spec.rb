@@ -12,12 +12,12 @@ RSpec.describe 'Filter', type: :feature do
   before { sign_in user }
 
   it 'filters in videos for a given range of views', :js do
-    create(:video, channel:, album:)
-    video2 = create(:video, channel:, album:)
-    create(:video, channel:, album:)
-    create(:video, channel:, album:)
-    video5 = create(:video, channel:, album:)
-    create(:video, channel:, album:)
+    video1 = create(:video, channel:)
+    video2 = create(:video, channel:)
+    create(:video, channel:)
+    create(:video, channel:)
+    video5 = create(:video, channel:)
+    video6 = create(:video, channel:)
 
     visit album_videos_path(album)
 
@@ -30,17 +30,17 @@ RSpec.describe 'Filter', type: :feature do
 
     click_on 'Apply'
 
-    expect(page).to have_no_content('1.0M')
-                .and have_no_content('6.0M')
+    expect(page).to have_no_content("#{(video1.views.to_f / 1_000_000).round(2)}M")
+                .and have_no_content("#{(video6.views.to_f / 1_000_000).round(2)}M")
   end
 
   it 'resets the filters if a view range is given', :js do
-    video1 = create(:video, channel:, album:)
-    video2 = create(:video, channel:, album:)
-    create(:video, channel:, album:)
-    create(:video, channel:, album:)
-    video5 = create(:video, channel:, album:)
-    video6 = create(:video, channel:, album:)
+    video1 = create(:video, channel:)
+    video2 = create(:video, channel:)
+    create(:video, channel:)
+    create(:video, channel:)
+    video5 = create(:video, channel:)
+    video6 = create(:video, channel:)
 
     visit album_videos_path(album)
 

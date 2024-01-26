@@ -65,13 +65,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_26_085403) do
     t.float "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "album_id"
     t.string "channel_id"
-    t.index ["album_id"], name: "index_videos_on_album_id"
   end
 
   add_foreign_key "albums", "users"
   add_foreign_key "channels", "albums"
-  add_foreign_key "videos", "albums"
   add_foreign_key "videos", "channels", primary_key: "identifier"
 end
