@@ -10,13 +10,14 @@ per minute and 10,000 call per day.
 
 # Installation
 
-1. Make sure you have ruby 3.1.2 and postregsql
+1. Make sure you have ruby 3.1.2, redis and postregsql installed
 2. Clone the repo
 3. cd into the directory
 4. run `bundle install`
-5. start sidekiq by `bundle exec sidekiq`
-6. open another terminal, cd into project and run `rails s` to start the server locally
-7. The webapp will be available at the given host:port
+5. run `rails db:create` and then `rails db:migrate`
+6. start sidekiq by `bundle exec sidekiq`
+7. open another terminal, cd into project and run `rails s` to start the server locally
+8. The webapp will be available at the given host:port
 
 *(optional)* tests can be run through `bundle exec rspec`
 
