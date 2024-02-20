@@ -39,7 +39,7 @@ class YoutubeapiCallToFetchChannelMetadataJob < ApplicationJob
           dislikes = Youtube::Video.dislikes(video_id)
           video = Video.new(identifier: video_id, channel_id:, duration:, title: video_title.string,
                             views: video_data['viewCount'].to_i, comments: video_data['commentCount'].to_i,
-                            likes: video_data['likeCount'].to_i, dislikes:, rating: video_data['likeCount'].to_i / dislikes,
+                            likes: video_data['likeCount'].to_i, dislikes:, rating: video_data['likeCount'].to_i / (dislikes + 1),
                             published_on: video_data['publishedAt'])
           video.save
         end
